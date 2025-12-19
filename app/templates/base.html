@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Клиника косметологии Виктория - профессиональные услуги косметологии под медицинским контролем">
+    <meta name="keywords" content="косметология, пилинги, массаж лица, инъекционные процедуры, аппаратная косметология">
+    <title>{% block title %}Виктория - Клиника косметологии{% endblock %}</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Виктория" class="logo-img">
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link">Главная</a></li>
+                    <li><a href="#about" class="nav-link">О клинике</a></li>
+                    <li><a href="#services" class="nav-link">Услуги</a></li>
+                    <li><a href="#specialists" class="nav-link">Специалисты</a></li>
+                    <li><a href="#reviews" class="nav-link">Отзывы</a></li>
+                    <li><a href="#contacts" class="nav-link">Контакты</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="tel:+79991234567" class="phone-link">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (999) 123-45-67</span>
+                    </a>
+                    <button class="btn btn-primary" onclick="openAppointmentModal()">
+                        Записаться
+                    </button>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Виктория" class="footer-logo">
+                    <p class="footer-description">
+                        Ваша красота под медицинским контролем
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@victoria-clinic.ru</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Примерная, д. 1</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>График работы</h3>
+                    <ul class="footer-links">
+                        <li>Пн-Пт: 9:00 - 21:00</li>
+                        <li>Сб: 10:00 - 18:00</li>
+                        <li>Вс: выходной</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Социальные сети</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link" aria-label="VK"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Клиника косметологии "Виктория". Все права защищены.</p>
+                <div class="footer-legal">
+                    <a href="#" class="legal-link">Политика конфиденциальности</a>
+                    <a href="#" class="legal-link">Пользовательское соглашение</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно записи -->
+    <div class="modal" id="appointmentModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeAppointmentModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="modal-title">Записаться на консультацию</h2>
+            <p class="modal-subtitle">Заполните форму, и мы свяжемся с вами в ближайшее время</p>
+            
+            <form id="appointmentForm" class="appointment-form">
+                <div class="form-group">
+                    <label for="name">Ваше имя <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required class="form-control" placeholder="Анна Иванова">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Телефон <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required class="form-control" placeholder="+7 (999) 123-45-67">
+                </div>
+                
+                <div class="form-group">
+                    <label for="service">Услуга</label>
+                    <select id="service" name="service" class="form-control">
+                        <option value="">Выберите услугу</option>
+                        <option value="Биоревитализация лица">Биоревитализация лица</option>
+                        <option value="Мезотерапия лица">Мезотерапия лица</option>
+                        <option value="Чистка лица">Чистка лица</option>
+                        <option value="Пилинг">Пилинг</option>
+                        <option value="Массаж лица">Массаж лица</option>
+                        <option value="Другое">Другое</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="comment">Комментарий</label>
+                    <textarea id="comment" name="comment" class="form-control" rows="3" placeholder="Дополнительная информация"></textarea>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreed_to_processing" name="agreed_to_processing" required>
+                        <span>Я согласен(на) на обработку персональных данных <span class="required">*</span></span>
+                    </label>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreed_to_newsletter" name="agreed_to_newsletter">
+                        <span>Я согласен(на) на получение рассылки</span>
+                    </label>
+                </div>
+                
+                <div class="form-message" id="formMessage"></div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="btn-text">Отправить заявку</span>
+                    <span class="btn-loader" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно отзыва -->
+    <div class="modal" id="reviewModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeReviewModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="modal-title">Оставить отзыв</h2>
+            <p class="modal-subtitle">Поделитесь своим мнением о нашей клинике</p>
+            
+            <form id="reviewForm" class="review-form">
+                <div class="form-group">
+                    <label for="review_name">Ваше имя <span class="required">*</span></label>
+                    <input type="text" id="review_name" name="name" required class="form-control" placeholder="Мария Петрова">
+                </div>
+                
+                <div class="form-group">
+                    <label for="rating">Оценка <span class="required">*</span></label>
+                    <div class="rating-input" id="ratingInput">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="rating" name="rating" required value="">
+                </div>
+                
+                <div class="form-group">
+                    <label for="review_text">Ваш отзыв <span class="required">*</span></label>
+                    <textarea id="review_text" name="text" required class="form-control" rows="5" placeholder="Расскажите о вашем опыте посещения нашей клиники"></textarea>
+                </div>
+                
+                <div class="form-message" id="reviewFormMessage"></div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="btn-text">Отправить отзыв</span>
+                    <span class="btn-loader" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+
