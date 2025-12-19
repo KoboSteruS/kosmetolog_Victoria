@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
     initForms();
     initRatingInput();
     initHeaderScroll();
+    initCounters();
+    initFAQ();
+    initFloatingCTA();
+    initParallax();
 });
 
 /**
@@ -684,6 +688,124 @@ function initModalServicesFilter() {
             });
         });
     });
+}
+
+/**
+ * Анимированные счётчики достижений
+ */
+function initCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    let animated = false;
+    
+    const animateCounters = () => {
+        if (animated) return;
+        
+        const statsSection = document.querySelector('.stats-section');
+        if (!statsSection) return;
+        
+        const rect = statsSection.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isVisible) {
+            animated = true;
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000; // 2 секунды
+                const increment = target / (duration / 16); // 60 FPS
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+    };
+    
+    window.addEventListener('scroll', animateCounters);
+    animateCounters(); // Проверяем сразу при загрузке
+}
+
+/**
+ * FAQ аккордеон
+ */
+function initFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Закрываем все открытые
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+            
+            // Открываем текущий, если он был закрыт
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+}
+
+/**
+ * Плавающая кнопка записи
+ */
+function initFloatingCTA() {
+    const floatingCta = document.getElementById('floatingCta');
+    if (!floatingCta) return;
+    
+    let lastScrollTop = 0;
+    
+    const handleScroll = () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const heroHeight = window.innerHeight;
+        
+        // Показываем кнопку после прокрутки первого экрана
+        if (scrollTop > heroHeight) {
+            floatingCta.classList.add('visible');
+        } else {
+            floatingCta.classList.remove('visible');
+        }
+        
+        lastScrollTop = scrollTop;
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Проверяем сразу при загрузке
+}
+
+/**
+ * Параллакс эффект для Hero секции
+ */
+function initParallax() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    
+    const heroBackground = hero.querySelector('.hero-background');
+    if (!heroBackground) return;
+    
+    const handleScroll = () => {
+        const scrolled = window.pageYOffset;
+        const parallaxSpeed = 0.5;
+        
+        if (scrolled < window.innerHeight) {
+            heroBackground.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+        }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
 }
 
 // Экспортируем функции для использования из HTML

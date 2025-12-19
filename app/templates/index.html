@@ -34,6 +34,45 @@
     </div>
 </section>
 
+<!-- Счётчики достижений -->
+<section class="stats-section" data-aos="fade-up">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <span class="stat-number" data-target="15">0</span>
+                <span class="stat-label">Лет опыта</span>
+            </div>
+            
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <span class="stat-number" data-target="5000">0</span>
+                <span class="stat-label">Довольных клиентов</span>
+            </div>
+            
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stat-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <span class="stat-number" data-target="24">0</span>
+                <span class="stat-label">Видов процедур</span>
+            </div>
+            
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="400">
+                <div class="stat-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <span class="stat-number" data-target="100">0</span>
+                <span class="stat-label">% Результат</span>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Блок 2: О клинике -->
 <section class="about" id="about">
     <div class="container">
@@ -131,6 +170,12 @@
         <div class="services-grid">
             {% for service in services[:9] %}
             <div class="service-card" data-category="{{ service.category }}" data-aos="fade-up">
+                {% if service.badge %}
+                <span class="service-badge">{{ service.badge }}</span>
+                {% endif %}
+                <div class="service-icon">
+                    <i class="fas {{ service.icon }}"></i>
+                </div>
                 <div class="service-header">
                     <h3 class="service-name">{{ service.name }}</h3>
                     <span class="service-category">{{ service.category }}</span>
@@ -192,6 +237,79 @@
                 <i class="fas fa-file-certificate"></i>
                 Все сертификаты
             </a>
+        </div>
+    </div>
+</section>
+
+<!-- Блок 4.5: До/После -->
+<section class="before-after-section" id="results">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Результаты наших процедур</span>
+            <h2 class="section-title">До и После</h2>
+            <p style="max-width: 700px; margin: 20px auto 0; color: var(--text-light);">
+                Посмотрите на реальные результаты наших клиентов. Каждая процедура проводится профессионально с видимым эффектом.
+            </p>
+        </div>
+        
+        <div class="before-after-slider">
+            <div class="before-after-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="comparison-container">
+                    <img src="{{ url_for('static', filename='images/clinic1.jpg') }}" alt="До" class="comparison-image">
+                    <div class="comparison-labels">
+                        <span class="comparison-label">До</span>
+                        <span class="comparison-label">После</span>
+                    </div>
+                </div>
+                <div class="before-after-info">
+                    <h3 class="before-after-title">Биоревитализация лица</h3>
+                    <p class="before-after-description">
+                        Видимое улучшение состояния кожи, выравнивание тона, уменьшение мелких морщин. Результат после курса процедур.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="before-after-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="comparison-container">
+                    <img src="{{ url_for('static', filename='images/clinic2.jpg') }}" alt="До" class="comparison-image">
+                    <div class="comparison-labels">
+                        <span class="comparison-label">До</span>
+                        <span class="comparison-label">После</span>
+                    </div>
+                </div>
+                <div class="before-after-info">
+                    <h3 class="before-after-title">Чистка лица + Пилинг</h3>
+                    <p class="before-after-description">
+                        Глубокое очищение пор, устранение воспалений, выравнивание рельефа кожи. Мгновенный результат.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="before-after-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="comparison-container">
+                    <img src="{{ url_for('static', filename='images/clinic3.jpg') }}" alt="До" class="comparison-image">
+                    <div class="comparison-labels">
+                        <span class="comparison-label">До</span>
+                        <span class="comparison-label">После</span>
+                    </div>
+                </div>
+                <div class="before-after-info">
+                    <h3 class="before-after-title">RF-лифтинг</h3>
+                    <p class="before-after-description">
+                        Лифтинг эффект, подтяжка овала лица, уменьшение второго подбородка. Заметный результат после 5 процедур.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 50px;" data-aos="fade-up">
+            <p style="color: var(--text-light); margin-bottom: 20px; font-size: 14px;">
+                * Результаты индивидуальны и могут отличаться. Фотографии реальных клиентов с их согласия.
+            </p>
+            <button class="btn btn-primary" onclick="openAppointmentModal()">
+                <i class="fas fa-calendar-check"></i>
+                Записаться на консультацию
+            </button>
         </div>
     </div>
 </section>
@@ -321,6 +439,114 @@
                 <i class="fas fa-pen"></i>
                 Оставить отзыв
             </button>
+        </div>
+    </div>
+</section>
+
+<!-- Блок 6.5: FAQ -->
+<section class="faq-section" id="faq">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Ответы на вопросы</span>
+            <h2 class="section-title">Часто задаваемые вопросы</h2>
+        </div>
+        
+        <div class="faq-container">
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                <button class="faq-question">
+                    <span class="faq-question-text">Нужна ли предварительная консультация перед процедурой?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Да, обязательно! Перед любой процедурой наш специалист проводит бесплатную консультацию, на которой оценивает состояние кожи, выявляет противопоказания и подбирает оптимальную программу процедур именно для вас.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <button class="faq-question">
+                    <span class="faq-question-text">Сколько процедур нужно для видимого результата?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Это зависит от типа процедуры и индивидуальных особенностей. Например, результат чистки лица виден сразу, а для курса биоревитализации рекомендуется 3-5 процедур с интервалом 2-3 недели. Точный план составит врач на консультации.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                <button class="faq-question">
+                    <span class="faq-question-text">Болезненны ли инъекционные процедуры?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Мы используем тончайшие иглы и по желанию применяем местную анестезию (крем или инъекционную). Большинство наших клиентов отмечают минимальный дискомфорт во время процедуры. Ваш комфорт - наш приоритет!
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                <button class="faq-question">
+                    <span class="faq-question-text">Какие противопоказания к процедурам?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Общие противопоказания включают: беременность и кормление грудью, острые воспалительные процессы, онкологические заболевания, нарушения свертываемости крови, герпес в стадии обострения. Для каждой процедуры есть свой список противопоказаний, который врач обсудит с вами на консультации.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                <button class="faq-question">
+                    <span class="faq-question-text">Как ухаживать за кожей после процедур?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        После каждой процедуры врач дает подробные рекомендации по уходу. Обычно это: избегание солнца и солярия, использование SPF-защиты, специальные средства для домашнего ухода. Мы подберем для вас оптимальные средства профессиональной косметики.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="600">
+                <button class="faq-question">
+                    <span class="faq-question-text">Можно ли совмещать разные процедуры?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Да, многие процедуры отлично дополняют друг друга! Например, чистка + пилинг, или RF-лифтинг + мезотерапия. Врач составит комплексную программу, учитывая совместимость процедур и оптимальные интервалы между ними для максимального эффекта.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="700">
+                <button class="faq-question">
+                    <span class="faq-question-text">Какие препараты вы используете?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Мы работаем только с сертифицированными препаратами от ведущих мировых производителей: Allergan, Filorga, Meso-Wharton, CHRISTINA и другие. Все препараты имеют необходимые сертификаты качества и регистрационные удостоверения.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="800">
+                <button class="faq-question">
+                    <span class="faq-question-text">Предоставляете ли вы гарантию на результат?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Мы гарантируем качество процедур и профессионализм наших специалистов. Однако результат зависит от многих факторов: индивидуальных особенностей организма, соблюдения рекомендаций по уходу, образа жизни. Врач на консультации расскажет, какого результата можно ожидать именно в вашем случае.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
