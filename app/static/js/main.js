@@ -552,9 +552,145 @@ const style = document.createElement('style');
 style.textContent = fadeInAnimation;
 document.head.appendChild(style);
 
+/**
+ * Открыть модальное окно всех услуг
+ */
+function openAllServicesModal() {
+    const modal = document.getElementById('allServicesModal');
+    if (!modal) return;
+    
+    // Загружаем все услуги
+    loadAllServices();
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Закрыть модальное окно всех услуг
+ */
+function closeAllServicesModal() {
+    const modal = document.getElementById('allServicesModal');
+    if (!modal) return;
+    
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+/**
+ * Загрузить все услуги в модальное окно
+ */
+function loadAllServices() {
+    const container = document.getElementById('allServicesList');
+    if (!container) return;
+    
+    // Все услуги (те же что и на главной)
+    const allServices = [
+        {"name": "Прессотерапия", "price": "от 1 500 ₽", "category": "Аппаратная косметология"},
+        {"name": "Пилинг срединный", "price": "от 4 700 ₽", "category": "Пилинги"},
+        {"name": "Биоревитализация лица", "price": "от 7 000 ₽", "category": "Инъекционные процедуры"},
+        {"name": "Мезотерапия лица", "price": "от 5 000 ₽", "category": "Инъекционные процедуры"},
+        {"name": "Мезотерапия головы", "price": "от 4 800 ₽", "category": "Инъекционные процедуры"},
+        {"name": "Фотолечение / фототерапия", "price": "от 3 200 ₽", "category": "Аппаратная косметология"},
+        {"name": "Уходовая линия Line Repair (CHRISTINA)", "price": "от 4 900 ₽", "category": "Косметология"},
+        {"name": "Чистка лица атравматическая", "price": "от 5 700 ₽", "category": "Косметология"},
+        {"name": "Чистка лица комбинированная", "price": "от 3 800 ₽", "category": "Косметология"},
+        {"name": "Чистка лица ультразвуковая", "price": "от 2 000 ₽", "category": "Косметология"},
+        {"name": "Пилинг поверхностный", "price": "от 2 500 ₽", "category": "Пилинги"},
+        {"name": "LPG-массаж", "price": "от 700 ₽", "category": "Массажи лица"},
+        {"name": "Пилинг карбоновый", "price": "от 3 500 ₽", "category": "Пилинги"},
+        {"name": "Ручной массаж лица", "price": "от 1 800 ₽", "category": "Массажи лица"},
+        {"name": "RF-лифтинг", "price": "от 2 300 ₽", "category": "Аппаратная косметология"},
+        {"name": "Пилинг алмазный", "price": "от 3 000 ₽", "category": "Пилинги"},
+        {"name": "Вакуумный массаж лица", "price": "от 2 300 ₽", "category": "Массажи лица"},
+        {"name": "Альгинатная маска", "price": "от 1 200 ₽", "category": "Косметология"},
+        {"name": "Регенерация кожи", "price": "от 2 800 ₽", "category": "Косметология"},
+        {"name": "Глубокое увлажнение", "price": "от 3 700 ₽", "category": "Косметология"},
+        {"name": "Безинъекционная мезотерапия", "price": "от 2 200 ₽", "category": "Косметология"},
+        {"name": "Лазерная эпиляция", "price": "от 600 ₽", "category": "Аппаратная косметология"},
+        {"name": "Карбокситерапия", "price": "от 2 500 ₽", "category": "Инъекционные процедуры"},
+        {"name": "Микротоковая терапия", "price": "от 2 200 ₽", "category": "Аппаратная косметология"}
+    ];
+    
+    // Группируем по категориям
+    const categories = {};
+    allServices.forEach(service => {
+        if (!categories[service.category]) {
+            categories[service.category] = [];
+        }
+        categories[service.category].push(service);
+    });
+    
+    // Генерируем HTML
+    let html = '';
+    for (const [category, services] of Object.entries(categories)) {
+        html += `
+            <div class="service-category-block" data-category="${category}">
+                <h3 class="category-title">
+                    <i class="fas fa-chevron-right"></i>
+                    ${category}
+                </h3>
+                <div class="services-list">
+        `;
+        
+        services.forEach(service => {
+            html += `
+                <div class="service-item">
+                    <div class="service-info">
+                        <span class="service-item-name">${service.name}</span>
+                        <span class="service-item-price">${service.price}</span>
+                    </div>
+                    <button class="btn btn-sm btn-outline" onclick="closeAllServicesModal(); openAppointmentModal('${service.name}');">
+                        Записаться
+                    </button>
+                </div>
+            `;
+        });
+        
+        html += `
+                </div>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = html;
+    
+    // Добавляем фильтрацию в модальном окне
+    initModalServicesFilter();
+}
+
+/**
+ * Фильтрация услуг в модальном окне
+ */
+function initModalServicesFilter() {
+    const filterButtons = document.querySelectorAll('.filter-btn-modal');
+    const categoryBlocks = document.querySelectorAll('.service-category-block');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            // Обновляем активную кнопку
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Фильтруем блоки
+            categoryBlocks.forEach(block => {
+                if (category === 'all' || block.getAttribute('data-category') === category) {
+                    block.style.display = 'block';
+                } else {
+                    block.style.display = 'none';
+                }
+            });
+        });
+    });
+}
+
 // Экспортируем функции для использования из HTML
 window.openAppointmentModal = openAppointmentModal;
 window.closeAppointmentModal = closeAppointmentModal;
 window.openReviewModal = openReviewModal;
 window.closeReviewModal = closeReviewModal;
+window.openAllServicesModal = openAllServicesModal;
+window.closeAllServicesModal = closeAllServicesModal;
 

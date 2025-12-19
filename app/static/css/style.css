@@ -279,7 +279,7 @@ button {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(200, 123, 133, 0.85) 0%, rgba(44, 27, 27, 0.75) 100%);
+    background: linear-gradient(135deg, rgba(200, 123, 133, 0.3) 0%, rgba(44, 27, 27, 0.4) 100%);
 }
 
 .hero-content {
@@ -292,7 +292,7 @@ button {
 }
 
 .hero-logo img {
-    height: 100px;
+    height: 70px;
     margin: 0 auto;
 }
 
@@ -302,6 +302,7 @@ button {
     font-weight: 600;
     margin-bottom: 10px;
     line-height: 1.2;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subtitle {
@@ -310,6 +311,7 @@ button {
     font-weight: 400;
     margin-bottom: 25px;
     line-height: 1.2;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .hero-description {
@@ -318,7 +320,7 @@ button {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    opacity: 0.95;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
 }
 
 .scroll-indicator {
@@ -379,7 +381,7 @@ button {
 
 .values {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 30px;
     margin-bottom: 50px;
 }
@@ -1022,6 +1024,116 @@ button {
     color: #FFD700;
 }
 
+/* === ALL SERVICES MODAL === */
+.all-services-list {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.service-category-block {
+    margin-bottom: 30px;
+    animation: fadeIn 0.3s ease;
+}
+
+.category-title {
+    font-size: 22px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--secondary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-title i {
+    font-size: 16px;
+}
+
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: var(--secondary-color);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.service-item:hover {
+    background: var(--white-color);
+    box-shadow: 0 5px 15px rgba(200, 123, 133, 0.15);
+    transform: translateX(5px);
+}
+
+.service-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+}
+
+.service-item-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.service-item-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.btn-sm {
+    padding: 8px 20px;
+    font-size: 14px;
+}
+
+.filter-btn-modal {
+    padding: 8px 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50px;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 13px;
+    background: var(--white-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-btn-modal.active,
+.filter-btn-modal:hover {
+    background: var(--primary-color);
+    color: var(--white-color);
+}
+
+/* Скроллбар для списка услуг */
+.all-services-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.all-services-list::-webkit-scrollbar-track {
+    background: var(--secondary-color);
+    border-radius: 10px;
+}
+
+.all-services-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.all-services-list::-webkit-scrollbar-thumb:hover {
+    background: #B66A74;
+}
+
 /* === FOOTER === */
 .footer {
     background: var(--dark-color);
@@ -1222,6 +1334,25 @@ button {
     .filter-btn {
         padding: 8px 15px;
         font-size: 12px;
+    }
+    
+    .filter-btn-modal {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .service-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .service-item .btn-sm {
+        width: 100%;
+    }
+    
+    .category-title {
+        font-size: 18px;
     }
 }
 

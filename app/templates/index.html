@@ -15,11 +15,16 @@
             <h1 class="hero-title">Ваша красота —</h1>
             <h2 class="hero-subtitle">под медицинским контролем</h2>
             <p class="hero-description">
-                Профессиональная косметология с использованием сертифицированных препаратов
+                Клиника косметологии и коррекции фигуры в центре Петрозаводска. Опыт ведущего косметолога - более 15 лет!
             </p>
-            <button class="btn btn-hero" onclick="openAppointmentModal()">
-                Записаться на консультацию
-            </button>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-hero" onclick="openAppointmentModal()">
+                    Записаться на консультацию
+                </button>
+                <a href="https://n1363166.yclients.com" target="_blank" class="btn btn-hero" style="background: transparent; border: 2px solid white; text-decoration: none;">
+                    Онлайн-запись
+                </a>
+            </div>
         </div>
     </div>
     <div class="scroll-indicator">
@@ -68,7 +73,7 @@
                 </div>
                 <h3 class="value-title">Опытные специалисты</h3>
                 <p class="value-description">
-                    Дипломированные врачи-косметологи с медицинским образованием
+                    Дипломированные врачи-косметологи с медицинским образованием. Опыт ведущего косметолога - более 15 лет!
                 </p>
             </div>
             
@@ -81,6 +86,16 @@
                     Поддерживаем строгую гигиену и создаем приятную атмосферу
                 </p>
             </div>
+            
+            <div class="value-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="value-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3 class="value-title">Программа лояльности</h3>
+                <p class="value-description">
+                    Специальные предложения и скидки для постоянных клиентов
+                </p>
+            </div>
         </div>
         
         <div class="license-info" data-aos="fade-up">
@@ -88,7 +103,7 @@
                 <i class="fas fa-file-contract"></i>
             </div>
             <p class="license-text">
-                Работаем по лицензии, строго по медицинским стандартам
+                Работаем по лицензии № Л041-01175-10/02696416, строго по медицинским стандартам. Команда с медицинским образованием и опытом более 15 лет!
             </p>
         </div>
     </div>
@@ -112,9 +127,9 @@
             <button class="filter-btn" data-category="Аппаратная косметология">Аппаратная</button>
         </div>
         
-        <!-- Сетка услуг -->
+        <!-- Сетка услуг (показываем только 9 популярных) -->
         <div class="services-grid">
-            {% for service in services %}
+            {% for service in services[:9] %}
             <div class="service-card" data-category="{{ service.category }}" data-aos="fade-up">
                 <div class="service-header">
                     <h3 class="service-name">{{ service.name }}</h3>
@@ -128,6 +143,14 @@
                 </div>
             </div>
             {% endfor %}
+        </div>
+        
+        <!-- Кнопка "Посмотреть все услуги" -->
+        <div class="services-more" data-aos="fade-up" style="text-align: center; margin-top: 40px;">
+            <button class="btn btn-primary" onclick="openAllServicesModal()" style="padding: 15px 40px; font-size: 16px;">
+                <i class="fas fa-list"></i>
+                Посмотреть все услуги ({{ services|length }})
+            </button>
         </div>
     </div>
 </section>
@@ -314,9 +337,9 @@
             <!-- Карта -->
             <div class="contacts-map" data-aos="fade-right">
                 <div id="map" class="map-container">
-                    <!-- Здесь будет Яндекс.Карта или Google Maps -->
+                    <!-- Яндекс.Карта - Германа Титова, 11, Петрозаводск -->
                     <iframe 
-                        src="https://yandex.ru/map-widget/v1/?um=constructor%3A1234567890&amp;source=constructor" 
+                        src="https://yandex.ru/map-widget/v1/?um=constructor%3Af2f1bc0f0d3b1e3e4c8d4e8b0a1c2d3e&amp;source=constructor&amp;ll=34.347520%2C61.784660&amp;z=17&amp;pt=34.347520,61.784660,pm2rdm" 
                         width="100%" 
                         height="100%" 
                         frameborder="0"
@@ -331,7 +354,7 @@
                         </div>
                         <div class="contact-text">
                             <h4>Адрес</h4>
-                            <p>г. Москва, ул. Примерная, д. 1</p>
+                            <p>Германа Титова, 11, Петрозаводск</p>
                         </div>
                     </div>
                     
@@ -341,17 +364,17 @@
                         </div>
                         <div class="contact-text">
                             <h4>Телефон</h4>
-                            <p><a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
+                            <p><a href="tel:+79110505334">8 (911) 050-53-34</a></p>
                         </div>
                     </div>
                     
                     <div class="contact-item">
                         <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
+                            <i class="fas fa-globe"></i>
                         </div>
                         <div class="contact-text">
-                            <h4>Email</h4>
-                            <p><a href="mailto:info@victoria-clinic.ru">info@victoria-clinic.ru</a></p>
+                            <h4>Онлайн-запись</h4>
+                            <p><a href="https://n1363166.yclients.com" target="_blank">n1363166.yclients.com</a></p>
                         </div>
                     </div>
                     
@@ -361,7 +384,7 @@
                         </div>
                         <div class="contact-text">
                             <h4>График работы</h4>
-                            <p>Пн-Пт: 9:00 - 21:00<br>Сб: 10:00 - 18:00<br>Вс: выходной</p>
+                            <p>Каждый день: 10:00 - 20:00</p>
                         </div>
                     </div>
                 </div>
