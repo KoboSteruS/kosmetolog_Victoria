@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initFAQ();
     initFloatingCTA();
     initParallax();
+    initBeforeAfter();
 });
 
 /**
@@ -806,6 +807,85 @@ function initParallax() {
     };
     
     window.addEventListener('scroll', handleScroll);
+}
+
+/**
+ * Интерактивное сравнение До/После
+ */
+function initBeforeAfter() {
+    const containers = document.querySelectorAll('.comparison-container');
+    
+    containers.forEach((container, index) => {
+        // Создаём структуру для сравнения
+        const beforeImg = container.querySelector('.comparison-image');
+        if (!beforeImg) return;
+        
+        // Создаём изображение "После"
+        const afterImg = document.createElement('img');
+        afterImg.src = beforeImg.src.replace('before', 'after');
+        afterImg.alt = 'После';
+        afterImg.className = 'comparison-image comparison-after';
+        afterImg.style.position = 'absolute';
+        afterImg.style.top = '0';
+        afterImg.style.left = '0';
+        afterImg.style.width = '100%';
+        afterImg.style.height = '100%';
+        afterImg.style.objectFit = 'cover';
+        afterImg.style.clipPath = 'inset(0 50% 0 0)';
+        
+        container.appendChild(afterImg);
+        
+        // Добавляем слайдер
+        const slider = document.createElement('div');
+        slider.className = 'comparison-slider';
+        slider.style.left = '50%';
+        container.appendChild(slider);
+        
+        let isDragging = false;
+        
+        const updateSlider = (x) => {
+            const rect = container.getBoundingClientRect();
+            let position = ((x - rect.left) / rect.width) * 100;
+            position = Math.max(0, Math.min(100, position));
+            
+            slider.style.left = position + '%';
+            afterImg.style.clipPath = `inset(0 ${100 - position}% 0 0)`;
+        };
+        
+        const startDrag = (e) => {
+            isDragging = true;
+            container.style.cursor = 'ew-resize';
+            updateSlider(e.type.includes('mouse') ? e.pageX : e.touches[0].pageX);
+        };
+        
+        const stopDrag = () => {
+            isDragging = false;
+            container.style.cursor = 'default';
+        };
+        
+        const onDrag = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            updateSlider(e.type.includes('mouse') ? e.pageX : e.touches[0].pageX);
+        };
+        
+        // События мыши
+        slider.addEventListener('mousedown', startDrag);
+        document.addEventListener('mousemove', onDrag);
+        document.addEventListener('mouseup', stopDrag);
+        
+        // События тач
+        slider.addEventListener('touchstart', startDrag);
+        document.addEventListener('touchmove', onDrag);
+        document.addEventListener('touchend', stopDrag);
+        
+        // Клик по контейнеру
+        container.addEventListener('click', (e) => {
+            if (e.target !== slider) {
+                updateSlider(e.pageX);
+            }
+        });
+    });
 }
 
 // Экспортируем функции для использования из HTML

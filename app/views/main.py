@@ -47,28 +47,28 @@ SPECIALISTS = [
         "name": "Ведущий косметолог",
         "position": "Главный врач-косметолог",
         "specialization": "Клиника косметологии и коррекции фигуры",
-        "image": "doctor1.jpg",
+        "image": "doctor1.png",
         "experience": "Более 15 лет опыта"
     },
     {
         "name": "Косметолог клиники",
         "position": "Врач-косметолог",
         "specialization": "Специалист по инъекционным методикам и уходам",
-        "image": "doctor2.jpg",
+        "image": "doctor2.png",
         "experience": "Медицинское образование"
     },
     {
         "name": "Специалист по LPG",
         "position": "Врач-косметолог",
         "specialization": "Аппаратная косметология и коррекция фигуры",
-        "image": "doctor3.jpg",
+        "image": "doctor3.png",
         "experience": "Медицинское образование"
     },
     {
         "name": "Косметолог",
         "position": "Врач-косметолог",
         "specialization": "Пилинги, чистки и лазерная эпиляция",
-        "image": "doctor4.jpg",
+        "image": "doctor4.png",
         "experience": "Медицинское образование"
     },
 ]

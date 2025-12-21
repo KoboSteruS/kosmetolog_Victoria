@@ -725,6 +725,184 @@ button {
     max-height: 500px;
 }
 
+/* === СЕКЦИЯ ОБОРУДОВАНИЕ === */
+.equipment-section {
+    padding: 100px 0;
+    background: var(--white-color);
+}
+
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.equipment-card {
+    background: var(--white-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: all 0.4s ease;
+}
+
+.equipment-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(200, 123, 133, 0.25);
+}
+
+.equipment-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.equipment-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.equipment-card:hover .equipment-image img {
+    transform: scale(1.1);
+}
+
+.equipment-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.equipment-info {
+    padding: 25px;
+}
+
+.equipment-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+
+.equipment-description {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.equipment-features {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.equipment-features li {
+    font-size: 14px;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.equipment-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* === СЕКЦИЯ ПРОЦЕСС РАБОТЫ === */
+.process-section {
+    padding: 100px 0;
+    background: var(--secondary-color);
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.process-card {
+    background: var(--white-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(200, 123, 133, 0.2);
+}
+
+.process-number {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: var(--font-accent);
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(200, 123, 133, 0.4);
+}
+
+.process-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.process-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.process-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+}
+
+.process-info {
+    padding: 25px;
+}
+
+.process-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+
+.process-description {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
 /* === АНИМАЦИИ === */
 @keyframes fadeInUp {
     from {
