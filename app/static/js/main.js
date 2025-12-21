@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initCounters();
     initFAQ();
     initFloatingCTA();
-    initParallax();
     initBeforeAfter();
 });
 
@@ -785,28 +784,6 @@ function initFloatingCTA() {
     
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Проверяем сразу при загрузке
-}
-
-/**
- * Параллакс эффект для Hero секции
- */
-function initParallax() {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
-    
-    const heroBackground = hero.querySelector('.hero-background');
-    if (!heroBackground) return;
-    
-    const handleScroll = () => {
-        const scrolled = window.pageYOffset;
-        const parallaxSpeed = 0.5;
-        
-        if (scrolled < window.innerHeight) {
-            heroBackground.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
-        }
-    };
-    
-    window.addEventListener('scroll', handleScroll);
 }
 
 /**
