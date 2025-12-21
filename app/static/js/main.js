@@ -820,7 +820,8 @@ function initBeforeAfter() {
         const beforeImg = container.querySelector('.comparison-image');
         if (!beforeImg) return;
         
-        // Создаём изображение "После"
+        // Меняем местами: beforeImg показываем как "До" (проблемная кожа)
+        // Создаём изображение "После" (чистая кожа)
         const afterImg = document.createElement('img');
         afterImg.src = beforeImg.src.replace('before', 'after');
         afterImg.alt = 'После';
@@ -831,7 +832,7 @@ function initBeforeAfter() {
         afterImg.style.width = '100%';
         afterImg.style.height = '100%';
         afterImg.style.objectFit = 'cover';
-        afterImg.style.clipPath = 'inset(0 50% 0 0)';
+        afterImg.style.clipPath = 'inset(0 0 0 50%)'; // Показываем справа
         
         container.appendChild(afterImg);
         
@@ -849,7 +850,7 @@ function initBeforeAfter() {
             position = Math.max(0, Math.min(100, position));
             
             slider.style.left = position + '%';
-            afterImg.style.clipPath = `inset(0 ${100 - position}% 0 0)`;
+            afterImg.style.clipPath = `inset(0 0 0 ${position}%)`; // После справа
         };
         
         const startDrag = (e) => {
