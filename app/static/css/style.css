@@ -65,7 +65,7 @@ button {
 
 /* === UTILITY CLASSES === */
 .container {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -265,7 +265,8 @@ button {
 
 .hero .container {
     display: flex;
-    justify-content: flex-start; /* Контент слева */
+    justify-content: flex-start;
+    padding-left: 60px; /* Контролируем отступ слева */
 }
 
 .hero-background {
