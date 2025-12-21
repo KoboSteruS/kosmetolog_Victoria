@@ -257,8 +257,8 @@ button {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start; /* Изменено с center на flex-start */
+    text-align: left; /* Изменено с center на left */
     color: var(--white-color);
     padding: 100px 0 60px;
 }
@@ -269,7 +269,7 @@ button {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../images/hero-bg.jpg') center/cover no-repeat;
+    background: url('../images/hero-bg.png') center/cover no-repeat;
     z-index: -1;
     animation: zoomIn 20s ease-in-out infinite alternate;
 }
@@ -295,6 +295,7 @@ button {
 .hero-content {
     position: relative;
     z-index: 1;
+    max-width: 650px; /* Ограничиваем ширину контента */
 }
 
 .hero-logo {
@@ -303,7 +304,7 @@ button {
 
 .hero-logo img {
     height: 70px;
-    margin: 0 auto;
+    margin: 0; /* Убираем auto для выравнивания слева */
 }
 
 .hero-title {
@@ -328,8 +329,7 @@ button {
     font-size: 18px;
     margin-bottom: 40px;
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    /* Убираем margin auto */
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
 }
 
