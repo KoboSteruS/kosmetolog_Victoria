@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function initAOS() {
     if (typeof AOS !== 'undefined') {
         AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
+            duration: 400, // Уменьшил с 800 до 400ms - быстрее в 2 раза
+            easing: 'ease-out', // Более резкое появление
             once: true,
-            offset: 100
+            offset: 50 // Уменьшил с 100 до 50 - раньше начинает появляться
         });
     }
 }
