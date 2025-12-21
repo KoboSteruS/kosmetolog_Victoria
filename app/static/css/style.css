@@ -276,7 +276,7 @@ button {
     right: 0;
     bottom: 0;
     background: url('../images/hero-bg.png') center top/cover no-repeat; /* Изменил на center top */
-    background-position: center -80px; /* Сдвинул вверх на 80px, чтобы видеть логотип */
+    background-position: calc(50% - 100px) -40px; /* Сдвинул влево на 100px и вверх на 40px */
     z-index: -1;
     animation: zoomIn 20s ease-in-out infinite alternate;
 }
