@@ -257,10 +257,15 @@ button {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Изменено с center на flex-start */
-    text-align: left; /* Изменено с center на left */
+    justify-content: flex-start;
+    text-align: left;
     color: var(--white-color);
     padding: 100px 0 60px;
+}
+
+.hero .container {
+    display: flex;
+    justify-content: flex-start; /* Контент слева */
 }
 
 .hero-background {
