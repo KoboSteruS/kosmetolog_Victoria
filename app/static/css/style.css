@@ -265,8 +265,8 @@ button {
 
 .hero .container {
     display: flex;
-    justify-content: flex-start;
-    padding-left: 60px; /* Контролируем отступ слева */
+    justify-content: flex-start; /* Контент слева */
+    margin-left: 60px;
 }
 
 .hero-background {
@@ -275,7 +275,8 @@ button {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../images/hero-bg.png') center/cover no-repeat;
+    background: url('../images/hero-bg.png') center top/cover no-repeat; /* Изменил на center top */
+    background-position: center -80px; /* Сдвинул вверх на 80px, чтобы видеть логотип */
     z-index: -1;
     animation: zoomIn 20s ease-in-out infinite alternate;
 }
