@@ -3,7 +3,7 @@ services:
     name: kosmetolog-victoria
     runtime: python
     buildCommand: pip install --upgrade pip && pip install --only-binary=:all: -r requirements.txt
-    startCommand: gunicorn --bind 0.0.0.0:$PORT run:app
+    startCommand: gunicorn --workers 2 --bind 0.0.0.0:$PORT run:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.11
@@ -15,6 +15,4 @@ services:
         value: production
       - key: DEBUG
         value: False
-      - key: PORT
-        value: 10000
 
