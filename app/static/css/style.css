@@ -266,6 +266,7 @@ button {
 .hero .container {
     display: flex;
     justify-content: flex-start; /* Контент слева */
+    padding-top: 200px;
     margin-left: 60px;
 }
 
@@ -276,7 +277,7 @@ button {
     right: 0;
     bottom: 0;
     background: url('../images/hero-bg.png') center top/cover no-repeat; /* Изменил на center top */
-    background-position: calc(50% - 100px) -40px; /* Сдвинул влево на 100px и вверх на 40px */
+    background-position: calc(50% - 0px) -40px; /* Сдвинул влево на 100px и вверх на 40px */
     z-index: -1;
     animation: zoomIn 20s ease-in-out infinite alternate;
 }
@@ -841,83 +842,90 @@ button {
 /* === СЕКЦИЯ ПРОЦЕСС РАБОТЫ === */
 .process-section {
     padding: 100px 0;
-    background: var(--secondary-color);
-}
-
-.process-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.process-card {
     background: var(--white-color);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--box-shadow);
+}
+
+.process-list {
+    max-width: 800px;
+    margin: 50px auto 0;
+}
+
+.process-step {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid var(--secondary-color);
     transition: all 0.3s ease;
-    position: relative;
 }
 
-.process-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(200, 123, 133, 0.2);
+.process-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
-.process-number {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 50px;
-    height: 50px;
-    background: var(--primary-color);
+.process-step:hover {
+    transform: translateX(10px);
+}
+
+.process-step-number {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #B66A74 100%);
     color: var(--white-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
     font-family: var(--font-accent);
-    z-index: 10;
-    box-shadow: 0 4px 15px rgba(200, 123, 133, 0.4);
+    box-shadow: 0 4px 20px rgba(200, 123, 133, 0.3);
 }
 
-.process-image {
-    position: relative;
-    height: 250px;
-    overflow: hidden;
+.process-step-content {
+    flex: 1;
+    padding-top: 10px;
 }
 
-.process-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.process-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
-}
-
-.process-info {
-    padding: 25px;
-}
-
-.process-title {
-    font-size: 18px;
+.process-step-title {
+    font-size: 24px;
     font-weight: 600;
     color: var(--dark-color);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    font-family: var(--font-accent);
 }
 
-.process-description {
-    font-size: 14px;
+.process-step-description {
+    font-size: 16px;
     color: var(--text-light);
-    line-height: 1.6;
+    line-height: 1.8;
+}
+
+/* Адаптивность для процесса */
+@media (max-width: 768px) {
+    .process-step {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .process-step-number {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+    
+    .process-step-title {
+        font-size: 20px;
+    }
+    
+    .process-step-description {
+        font-size: 14px;
+    }
 }
 
 /* === АНИМАЦИИ === */

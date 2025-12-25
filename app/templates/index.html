@@ -9,9 +9,6 @@
     </div>
     <div class="container">
         <div class="hero-content" data-aos="fade-up">
-            <div class="hero-logo">
-                <img src="{{ url_for('static', filename='images/logo-light.png') }}" alt="Виктория">
-            </div>
             <h1 class="hero-title">Ваша красота —</h1>
             <h2 class="hero-subtitle">под медицинским контролем</h2>
             <p class="hero-description">
@@ -241,91 +238,6 @@
     </div>
 </section>
 
-<!-- Блок 4.3: Наше оборудование -->
-<section class="equipment-section" id="equipment">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Современные технологии</span>
-            <h2 class="section-title">Наше оборудование</h2>
-            <p style="max-width: 700px; margin: 20px auto 0; color: var(--text-light);">
-                Работаем только на сертифицированном оборудовании от ведущих мировых производителей
-            </p>
-        </div>
-        
-        <div class="equipment-grid">
-            <div class="equipment-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="equipment-image">
-                    <img src="{{ url_for('static', filename='images/equipment-1.png') }}" alt="RF-лифтинг аппарат">
-                    <span class="equipment-badge">Популярно</span>
-                </div>
-                <div class="equipment-info">
-                    <h3 class="equipment-title">RF-лифтинг аппарат</h3>
-                    <p class="equipment-description">
-                        Радиочастотная терапия для подтяжки кожи и омоложения лица
-                    </p>
-                    <ul class="equipment-features">
-                        <li>Лифтинг овала лица</li>
-                        <li>Уменьшение морщин</li>
-                        <li>Улучшение тонуса кожи</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="equipment-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="equipment-image">
-                    <img src="{{ url_for('static', filename='images/equipment-2.png') }}" alt="Лазерное оборудование">
-                </div>
-                <div class="equipment-info">
-                    <h3 class="equipment-title">Лазерное оборудование</h3>
-                    <p class="equipment-description">
-                        Современные лазеры для эпиляции и фототерапии
-                    </p>
-                    <ul class="equipment-features">
-                        <li>Лазерная эпиляция</li>
-                        <li>Фотоомоложение</li>
-                        <li>Удаление пигментации</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="equipment-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="equipment-image">
-                    <img src="{{ url_for('static', filename='images/equipment-3.png') }}" alt="LPG массажёр">
-                    <span class="equipment-badge">ХИТ</span>
-                </div>
-                <div class="equipment-info">
-                    <h3 class="equipment-title">LPG массажёр</h3>
-                    <p class="equipment-description">
-                        Профессиональное оборудование для коррекции фигуры и массажа лица
-                    </p>
-                    <ul class="equipment-features">
-                        <li>Коррекция фигуры</li>
-                        <li>Антицеллюлитный массаж</li>
-                        <li>Лимфодренаж</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="equipment-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="equipment-image">
-                    <img src="{{ url_for('static', filename='images/equipment-4.png') }}" alt="Аппарат для микротоков">
-                </div>
-                <div class="equipment-info">
-                    <h3 class="equipment-title">Микротоковая терапия</h3>
-                    <p class="equipment-description">
-                        Безболезненная стимуляция мышц и кожи лица
-                    </p>
-                    <ul class="equipment-features">
-                        <li>Тонизирование мышц</li>
-                        <li>Улучшение кровообращения</li>
-                        <li>Лимфодренаж лица</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Блок 4.5: До/После -->
 <section class="before-after-section" id="results">
     <div class="container">
@@ -410,54 +322,42 @@
             </p>
         </div>
         
-        <div class="process-grid">
-            <div class="process-card" data-aos="fade-up" data-aos-delay="100">
-                <span class="process-number">1</span>
-                <div class="process-image">
-                    <img src="{{ url_for('static', filename='images/process-1.png') }}" alt="Консультация">
-                </div>
-                <div class="process-info">
-                    <h3 class="process-title">Консультация и диагностика</h3>
-                    <p class="process-description">
+        <div class="process-list">
+            <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                <div class="process-step-number">01</div>
+                <div class="process-step-content">
+                    <h3 class="process-step-title">Консультация и диагностика</h3>
+                    <p class="process-step-description">
                         Врач-косметолог проводит детальный осмотр, выявляет особенности кожи и подбирает оптимальную программу процедур индивидуально для вас
                     </p>
                 </div>
             </div>
             
-            <div class="process-card" data-aos="fade-up" data-aos-delay="200">
-                <span class="process-number">2</span>
-                <div class="process-image">
-                    <img src="{{ url_for('static', filename='images/process-2.png') }}" alt="Подготовка">
-                </div>
-                <div class="process-info">
-                    <h3 class="process-title">Подготовка к процедуре</h3>
-                    <p class="process-description">
+            <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                <div class="process-step-number">02</div>
+                <div class="process-step-content">
+                    <h3 class="process-step-title">Подготовка к процедуре</h3>
+                    <p class="process-step-description">
                         Тщательное очищение кожи, нанесение анестезии при необходимости. Создаём максимально комфортные условия для процедуры
                     </p>
                 </div>
             </div>
             
-            <div class="process-card" data-aos="fade-up" data-aos-delay="300">
-                <span class="process-number">3</span>
-                <div class="process-image">
-                    <img src="{{ url_for('static', filename='images/process-3.png') }}" alt="Проведение процедуры">
-                </div>
-                <div class="process-info">
-                    <h3 class="process-title">Проведение процедуры</h3>
-                    <p class="process-description">
+            <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                <div class="process-step-number">03</div>
+                <div class="process-step-content">
+                    <h3 class="process-step-title">Проведение процедуры</h3>
+                    <p class="process-step-description">
                         Работаем на сертифицированном оборудовании с использованием качественных препаратов. Контролируем ваш комфорт на каждом этапе
                     </p>
                 </div>
             </div>
             
-            <div class="process-card" data-aos="fade-up" data-aos-delay="400">
-                <span class="process-number">4</span>
-                <div class="process-image">
-                    <img src="{{ url_for('static', filename='images/process-4.png') }}" alt="Рекомендации">
-                </div>
-                <div class="process-info">
-                    <h3 class="process-title">Рекомендации по уходу</h3>
-                    <p class="process-description">
+            <div class="process-step" data-aos="fade-up" data-aos-delay="400">
+                <div class="process-step-number">04</div>
+                <div class="process-step-content">
+                    <h3 class="process-step-title">Рекомендации по уходу</h3>
+                    <p class="process-step-description">
                         Подробные инструкции по уходу после процедуры, подбор профессиональной косметики для домашнего использования, запись на следующую процедуру
                     </p>
                 </div>
