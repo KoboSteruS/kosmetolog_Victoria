@@ -276,8 +276,9 @@ button {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../images/hero-bg.png') center top/cover no-repeat; /* Изменил на center top */
-    background-position: calc(50% - 0px) -40px; /* Сдвинул влево на 100px и вверх на 40px */
+    background: url('../images/hero-bg.png') center top/contain no-repeat; /* Изменил на contain для отдаления */
+    background-position: calc(50% - 150px) -40px; /* Сдвинул влево сильнее */
+    background-size: 95%; /* Уменьшил масштаб на 5% */
     z-index: -1;
     animation: zoomIn 20s ease-in-out infinite alternate;
 }
@@ -297,7 +298,14 @@ button {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(200, 123, 133, 0.3) 0%, rgba(44, 27, 27, 0.4) 100%);
+    /* Затемнение + розовый свет слева */
+    background: 
+        linear-gradient(90deg, 
+            rgba(200, 123, 133, 0.4) 0%,     /* Розовый свет слева */
+            rgba(200, 123, 133, 0.2) 30%,    /* Плавный переход */
+            rgba(44, 27, 27, 0.5) 70%,       /* Затемнение справа */
+            rgba(44, 27, 27, 0.6) 100%       /* Сильнее затемнение справа */
+        );
 }
 
 .hero-content {
