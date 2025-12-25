@@ -589,42 +589,12 @@ button {
     transform: translateY(-8px);
 }
 
-.specialist-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(200, 123, 133, 0.1) 0%, transparent 100%);
-    border-radius: var(--border-radius);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.specialist-card:hover::after {
-    opacity: 1;
-}
 
 .specialist-image {
     position: relative;
     overflow: hidden;
 }
 
-.specialist-image::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(200, 123, 133, 0.2), rgba(44, 27, 27, 0.3));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
-}
-
-.specialist-card:hover .specialist-image::before {
-    opacity: 1;
-}
 
 /* === СЕКЦИЯ ДО/ПОСЛЕ === */
 .before-after-section {
@@ -1267,6 +1237,8 @@ button {
     overflow: hidden;
     box-shadow: var(--box-shadow);
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
 }
 
 .specialist-card:hover {
@@ -1287,26 +1259,11 @@ button {
     transition: var(--transition);
 }
 
-.specialist-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(200, 123, 133, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: var(--transition);
-}
-
-.specialist-card:hover .specialist-overlay {
-    opacity: 1;
-}
-
 .specialist-info {
     padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .specialist-name {
@@ -1335,10 +1292,24 @@ button {
     gap: 8px;
     color: var(--text-light);
     font-size: 13px;
+    margin-bottom: 20px;
 }
 
 .specialist-experience i {
     color: var(--primary-color);
+}
+
+.specialist-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.specialist-actions .btn {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 14px;
 }
 
 .certificates-link {
@@ -2491,6 +2462,10 @@ body.vision-images-off img {
     
     .specialists-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .specialist-actions {
+        flex-direction: column;
     }
     
     .documents-images {
