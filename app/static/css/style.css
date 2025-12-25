@@ -152,7 +152,7 @@ button {
 
 .btn-white {
     background: var(--white-color);
-    color: var(--primary-color);
+    color: var(--white-color);
 }
 
 .btn-white:hover {
@@ -251,6 +251,19 @@ button {
     transition: var(--transition);
 }
 
+/* Анимация гамбургера при открытии */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
 /* === HERO SECTION === */
 .hero {
     position: relative;
@@ -276,10 +289,60 @@ button {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../images/hero-bg.png') center top/cover no-repeat; /* Изменил на center top */
-    background-position: calc(50% - 0px) -40px; /* Сдвинул влево на 100px и вверх на 40px */
+    background: url('../images/hero-bg.png') center top/cover no-repeat;
+    background-position: calc(50% - 0px) -40px;
     z-index: -1;
     animation: zoomIn 20s ease-in-out infinite alternate;
+}
+
+/* Мобильный фон для Hero */
+@media (max-width: 768px) {
+    .hero-background {
+        background: url('../images/hero-bg-mobile.png') center/cover no-repeat;
+        background-position: center center;
+    }
+    
+    .hero {
+        text-align: center;
+        padding: 120px 0 40px;
+    }
+    
+    .hero .container {
+        margin-left: 0;
+        padding-top: 0;
+        justify-content: center;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+    
+    .hero-logo img {
+        margin: 0 auto;
+    }
+    
+    .hero-title {
+        font-size: 36px;
+    }
+    
+    .hero-subtitle {
+        font-size: 28px;
+    }
+    
+    .hero-description {
+        font-size: 16px;
+    }
+    
+    /* Кнопки Hero на мобильных */
+    .hero-content > div[style*="display: flex"] {
+        justify-content: center !important;
+    }
+    
+    .btn-hero {
+        padding: 15px 30px;
+        font-size: 14px;
+    }
 }
 
 @keyframes zoomIn {
