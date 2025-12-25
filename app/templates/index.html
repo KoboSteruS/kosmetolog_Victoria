@@ -18,7 +18,7 @@
                 <button class="btn btn-hero" onclick="openAppointmentModal()">
                     Записаться на консультацию
                 </button>
-                <a href="https://n1363166.yclients.com" target="_blank" class="btn btn-hero" style="background: transparent; border: 2px solid white; text-decoration: none;">
+                <a href="https://n1363166.yclients.com" target="_blank" class="btn btn-hero" style="background: transparent; border: 2px solid white; color: white; text-decoration: none;">
                     Онлайн-запись
                 </a>
             </div>
@@ -622,9 +622,9 @@
                     </div>
                     
                     <div class="form-group">
-                        <select name="service" class="form-control">
+                        <select name="service" class="form-control service-select">
                             <option value="">Выберите услугу</option>
-                            {% for service in services[:10] %}
+                            {% for service in services %}
                             <option value="{{ service.name }}">{{ service.name }}</option>
                             {% endfor %}
                         </select>
