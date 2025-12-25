@@ -1157,12 +1157,6 @@ button {
     background: linear-gradient(180deg, var(--white-color) 0%, var(--secondary-color) 100%);
 }
 
-.services .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .services-filter {
     display: flex;
     justify-content: center;
@@ -1189,10 +1183,21 @@ button {
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 25px;
     justify-items: stretch;
-    align-items: stretch;
+}
+
+@media (max-width: 1200px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .service-card {
