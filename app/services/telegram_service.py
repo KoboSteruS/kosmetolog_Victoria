@@ -32,25 +32,40 @@ class TelegramService:
             return []
         return [cid.strip() for cid in chat_ids_str.split(',') if cid.strip()]
     
-    def get_updates(self) -> List[dict]:
+    def get_updates(self, limit: int = 100) -> List[dict]:
         """
         Получает обновления от бота (новые сообщения).
         Используется для получения chat_id пользователей.
         
+        Args:
+            limit: Максимальное количество обновлений для получения
+            
         Returns:
             Список обновлений
         """
         try:
+            # Получаем последние обновления без подтверждения (offset=0)
+            # И увеличиваем лимит до 100
             response = requests.get(
                 f"{self.base_url}/getUpdates",
+                params={
+                    'limit': limit,
+                    'offset': 0  # Получаем все непрочитанные сообщения
+                },
                 timeout=10
             )
             response.raise_for_status()
             data = response.json()
             
+            logger.info(f"Telegram getUpdates response: ok={data.get('ok')}, result count={len(data.get('result', []))}")
+            
             if data.get('ok'):
-                return data.get('result', [])
-            return []
+                updates = data.get('result', [])
+                logger.info(f"Получено {len(updates)} обновлений от Telegram")
+                return updates
+            else:
+                logger.error(f"Telegram API error: {data.get('description', 'Unknown error')}")
+                return []
             
         except Exception as e:
             logger.error(f"Ошибка при получении обновлений Telegram: {e}")
@@ -59,19 +74,32 @@ class TelegramService:
     def get_active_chat_ids(self) -> List[str]:
         """
         Получает список chat_id пользователей, которые писали боту.
+        Комбинирует chat_id из настроек и из последних обновлений.
         
         Returns:
             Список уникальных chat_id
         """
-        updates = self.get_updates()
         chat_ids = set()
+        
+        # Добавляем chat_id из настроек (если есть)
+        if self.chat_ids:
+            chat_ids.update(self.chat_ids)
+            logger.info(f"Chat IDs из настроек: {self.chat_ids}")
+        
+        # Получаем chat_id из последних обновлений
+        updates = self.get_updates()
+        logger.info(f"Обрабатываем {len(updates)} обновлений")
         
         for update in updates:
             if 'message' in update:
                 chat_id = update['message']['chat']['id']
                 chat_ids.add(str(chat_id))
+                username = update['message']['chat'].get('username', 'Unknown')
+                logger.info(f"Найден chat_id: {chat_id} (@{username})")
         
-        return list(chat_ids)
+        result = list(chat_ids)
+        logger.info(f"Всего активных chat_ids: {len(result)}")
+        return result
     
     def send_message(
         self,

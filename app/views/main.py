@@ -225,6 +225,52 @@ def create_review():
         }), 500
 
 
+@main_bp.route('/api/telegram/test', methods=['GET'])
+def test_telegram():
+    """
+    API endpoint для тестирования Telegram интеграции.
+    Показывает активные chat_id и последние обновления.
+    
+    Returns:
+        JSON с информацией о Telegram чатах
+    """
+    try:
+        # Получаем обновления
+        updates = telegram_service.get_updates()
+        
+        # Получаем активные chat_id
+        active_chats = telegram_service.get_active_chat_ids()
+        
+        # Форматируем информацию об обновлениях
+        updates_info = []
+        for update in updates[-10:]:  # Последние 10
+            if 'message' in update:
+                msg = update['message']
+                updates_info.append({
+                    'chat_id': msg['chat']['id'],
+                    'username': msg['chat'].get('username', 'N/A'),
+                    'first_name': msg['chat'].get('first_name', 'N/A'),
+                    'text': msg.get('text', 'N/A'),
+                    'date': msg.get('date', 'N/A')
+                })
+        
+        return jsonify({
+            'success': True,
+            'active_chats': active_chats,
+            'active_chats_count': len(active_chats),
+            'recent_updates': updates_info,
+            'total_updates': len(updates),
+            'message': f'Найдено {len(active_chats)} активных чатов'
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Ошибка при тестировании Telegram: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
 @main_bp.route('/api/reviews', methods=['GET'])
 def get_reviews():
     """
