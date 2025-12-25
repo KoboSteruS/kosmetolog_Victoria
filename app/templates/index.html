@@ -153,16 +153,6 @@
             <h2 class="section-title">Наши услуги</h2>
         </div>
         
-        <!-- Фильтр по категориям -->
-        <div class="services-filter" data-aos="fade-up">
-            <button class="filter-btn active" data-category="all">Все услуги</button>
-            <button class="filter-btn" data-category="Косметология">Косметология</button>
-            <button class="filter-btn" data-category="Пилинги">Пилинги</button>
-            <button class="filter-btn" data-category="Массажи лица">Массажи</button>
-            <button class="filter-btn" data-category="Инъекционные процедуры">Инъекции</button>
-            <button class="filter-btn" data-category="Аппаратная косметология">Аппаратная</button>
-        </div>
-        
         <!-- Сетка услуг (показываем только 4 популярные) -->
         <div class="services-grid">
             {% for service in services[:4] %}
