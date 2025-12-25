@@ -41,12 +41,18 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
+/* Оптимизация рендеринга изображений */
 img {
     max-width: 100%;
     height: auto;
     display: block;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
 }
 
 a {
@@ -524,6 +530,8 @@ button {
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    contain: layout style paint; /* Изоляция для оптимизации */
+    will-change: transform; /* Оптимизация анимации */
 }
 
 .service-card::before {

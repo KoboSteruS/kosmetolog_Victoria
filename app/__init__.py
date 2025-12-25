@@ -5,6 +5,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_compress import Compress
 from loguru import logger
 import sys
 from pathlib import Path
@@ -14,6 +15,7 @@ from app.config import settings
 # Инициализация расширений
 db = SQLAlchemy()
 migrate = Migrate()
+compress = Compress()
 
 
 def configure_logging() -> None:
@@ -59,6 +61,17 @@ def create_app() -> Flask:
     # Загрузка конфигурации
     app.config.from_object(settings)
     
+    # Настройка Gzip сжатия для оптимизации
+    app.config['COMPRESS_MIMETYPES'] = [
+        'text/html', 'text/css', 'text/xml', 'application/json',
+        'application/javascript', 'text/javascript'
+    ]
+    app.config['COMPRESS_LEVEL'] = 6
+    app.config['COMPRESS_MIN_SIZE'] = 500
+    
+    # Настройка кеширования статических файлов (1 год)
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 31536000
+    
     # Настройка логирования
     configure_logging()
     logger.info("Инициализация приложения Victoria Clinic")
@@ -66,6 +79,7 @@ def create_app() -> Flask:
     # Инициализация расширений
     db.init_app(app)
     migrate.init_app(app, db)
+    compress.init_app(app)
     
     # Регистрация blueprints
     from app.views import main_bp

@@ -20,14 +20,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /**
  * Инициализация библиотеки AOS для анимаций при скролле
+ * Оптимизировано для производительности
  */
 function initAOS() {
     if (typeof AOS !== 'undefined') {
+        // Отключаем AOS на слабых устройствах для экономии ресурсов
+        const isLowPerformance = window.matchMedia('(max-width: 768px)').matches || 
+                                 navigator.hardwareConcurrency < 4;
+        
         AOS.init({
-            duration: 400, // Уменьшил с 800 до 400ms - быстрее в 2 раза
-            easing: 'ease-out', // Более резкое появление
-            once: true,
-            offset: 50 // Уменьшил с 100 до 50 - раньше начинает появляться
+            duration: isLowPerformance ? 300 : 400, // Еще быстрее на мобильных
+            easing: 'ease-out',
+            once: true, // Анимация только один раз
+            offset: 50,
+            disable: isLowPerformance ? 'mobile' : false, // Отключаем на мобильных если совсем слабое устройство
+            throttleDelay: 99, // Задержка между обновлениями (оптимизация производительности)
+            debounceDelay: 50 // Задержка при resize (оптимизация)
         });
     }
 }

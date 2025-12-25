@@ -81,13 +81,13 @@
         <!-- Галерея интерьера -->
         <div class="gallery" data-aos="fade-up" data-aos-delay="100">
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='images/clinic1.png') }}" alt="Интерьер клиники">
+                <img src="{{ url_for('static', filename='images/clinic1.png') }}" alt="Интерьер клиники" loading="lazy" decoding="async">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='images/clinic2.png') }}" alt="Кабинет косметолога">
+                <img src="{{ url_for('static', filename='images/clinic2.png') }}" alt="Кабинет косметолога" loading="lazy" decoding="async">
             </div>
             <div class="gallery-item">
-                <img src="{{ url_for('static', filename='images/clinic3.png') }}" alt="Зона ожидания">
+                <img src="{{ url_for('static', filename='images/clinic3.png') }}" alt="Зона ожидания" loading="lazy" decoding="async">
             </div>
         </div>
         
@@ -199,7 +199,7 @@
             {% for specialist in specialists %}
             <div class="specialist-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
                 <div class="specialist-image">
-                    <img src="{{ url_for('static', filename='images/' + specialist.image) }}" alt="{{ specialist.name }}">
+                    <img src="{{ url_for('static', filename='images/' + specialist.image) }}" alt="{{ specialist.name }}" loading="lazy" decoding="async">
                     <div class="specialist-overlay">
                         <button class="btn btn-white" onclick="openAppointmentModal('', '{{ specialist.name }}')">
                             Записаться
@@ -242,7 +242,7 @@
         <div class="before-after-slider">
             <div class="before-after-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="comparison-container">
-                    <img src="{{ url_for('static', filename='images/before1.png') }}" alt="До" class="comparison-image">
+                    <img src="{{ url_for('static', filename='images/before1.png') }}" alt="До" class="comparison-image" loading="lazy" decoding="async">
                     <div class="comparison-labels">
                         <span class="comparison-label">До</span>
                         <span class="comparison-label">После</span>
@@ -258,7 +258,7 @@
             
             <div class="before-after-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="comparison-container">
-                    <img src="{{ url_for('static', filename='images/before2.png') }}" alt="До" class="comparison-image">
+                    <img src="{{ url_for('static', filename='images/before2.png') }}" alt="До" class="comparison-image" loading="lazy" decoding="async">
                     <div class="comparison-labels">
                         <span class="comparison-label">До</span>
                         <span class="comparison-label">После</span>
@@ -274,7 +274,7 @@
             
             <div class="before-after-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="comparison-container">
-                    <img src="{{ url_for('static', filename='images/before3.png') }}" alt="До" class="comparison-image">
+                    <img src="{{ url_for('static', filename='images/before3.png') }}" alt="До" class="comparison-image" loading="lazy" decoding="async">
                     <div class="comparison-labels">
                         <span class="comparison-label">До</span>
                         <span class="comparison-label">После</span>
@@ -373,11 +373,11 @@
         
         <div class="documents-images">
             <div class="document-image-card" data-aos="fade-up" data-aos-delay="100">
-                <img src="{{ url_for('static', filename='images/doc1.png') }}" alt="Лицензия" class="document-img">
+                <img src="{{ url_for('static', filename='images/doc1.png') }}" alt="Лицензия" class="document-img" loading="lazy" decoding="async">
             </div>
             
             <div class="document-image-card" data-aos="fade-up" data-aos-delay="200">
-                <img src="{{ url_for('static', filename='images/doc2.png') }}" alt="Документ" class="document-img">
+                <img src="{{ url_for('static', filename='images/doc2.png') }}" alt="Документ" class="document-img" loading="lazy" decoding="async">
             </div>
         </div>
     </div>
