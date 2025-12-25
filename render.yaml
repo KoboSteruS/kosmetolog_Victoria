@@ -2,11 +2,11 @@ services:
   - type: web
     name: kosmetolog-victoria
     runtime: python
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: gunicorn run:app
+    buildCommand: pip install --upgrade pip && pip install --only-binary=:all: -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT run:app
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.7
+        value: 3.11
       - key: SECRET_KEY
         generateValue: true
       - key: JWT_SECRET
@@ -15,4 +15,6 @@ services:
         value: production
       - key: DEBUG
         value: False
+      - key: PORT
+        value: 10000
 
