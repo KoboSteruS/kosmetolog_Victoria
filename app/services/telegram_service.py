@@ -43,32 +43,56 @@ class TelegramService:
         Returns:
             Список обновлений
         """
+        logger.info(f"🤖 [TELEGRAM] Запрос getUpdates с limit={limit}")
+        logger.info(f"🤖 [TELEGRAM] URL: {self.base_url}/getUpdates")
+        
         try:
-            # Получаем последние обновления без подтверждения (offset=0)
-            # И увеличиваем лимит до 100
+            params = {
+                'limit': limit,
+                'offset': 0
+            }
+            logger.info(f"🤖 [TELEGRAM] Параметры запроса: {params}")
+            
             response = requests.get(
                 f"{self.base_url}/getUpdates",
-                params={
-                    'limit': limit,
-                    'offset': 0  # Получаем все непрочитанные сообщения
-                },
+                params=params,
                 timeout=10
             )
+            
+            logger.info(f"🤖 [TELEGRAM] HTTP Status: {response.status_code}")
+            
             response.raise_for_status()
             data = response.json()
             
-            logger.info(f"Telegram getUpdates response: ok={data.get('ok')}, result count={len(data.get('result', []))}")
+            logger.info(f"🤖 [TELEGRAM] Ответ API - ok: {data.get('ok')}")
+            logger.info(f"🤖 [TELEGRAM] Количество обновлений: {len(data.get('result', []))}")
             
             if data.get('ok'):
                 updates = data.get('result', [])
-                logger.info(f"Получено {len(updates)} обновлений от Telegram")
+                logger.info(f"✅ [TELEGRAM] Получено {len(updates)} обновлений")
+                
+                # Логируем детали каждого обновления
+                for i, update in enumerate(updates):
+                    if 'message' in update:
+                        msg = update['message']
+                        chat = msg.get('chat', {})
+                        logger.info(
+                            f"  📩 Обновление {i+1}: "
+                            f"chat_id={chat.get('id')}, "
+                            f"username=@{chat.get('username', 'N/A')}, "
+                            f"text='{msg.get('text', 'N/A')[:50]}'"
+                        )
+                
                 return updates
             else:
-                logger.error(f"Telegram API error: {data.get('description', 'Unknown error')}")
+                error_desc = data.get('description', 'Unknown error')
+                logger.error(f"❌ [TELEGRAM] Ошибка API: {error_desc}")
+                logger.error(f"❌ [TELEGRAM] Полный ответ: {data}")
                 return []
             
         except Exception as e:
-            logger.error(f"Ошибка при получении обновлений Telegram: {e}")
+            logger.error(f"❌ [TELEGRAM] Исключение при getUpdates: {e}")
+            logger.error(f"❌ [TELEGRAM] Тип: {type(e).__name__}")
             return []
     
     def get_active_chat_ids(self) -> List[str]:
@@ -79,26 +103,58 @@ class TelegramService:
         Returns:
             Список уникальных chat_id
         """
+        logger.info("🔍 [TELEGRAM] Поиск активных chat_id...")
         chat_ids = set()
         
         # Добавляем chat_id из настроек (если есть)
+        logger.info(f"🔍 [TELEGRAM] Проверяем настройки TELEGRAM_CHAT_IDS...")
         if self.chat_ids:
             chat_ids.update(self.chat_ids)
-            logger.info(f"Chat IDs из настроек: {self.chat_ids}")
+            logger.info(f"✅ [TELEGRAM] Найдено в настройках: {self.chat_ids}")
+        else:
+            logger.info(f"ℹ️  [TELEGRAM] В настройках нет сохраненных chat_id")
         
         # Получаем chat_id из последних обновлений
+        logger.info(f"🔍 [TELEGRAM] Запрашиваем обновления от бота...")
         updates = self.get_updates()
-        logger.info(f"Обрабатываем {len(updates)} обновлений")
+        logger.info(f"📊 [TELEGRAM] Получено обновлений для обработки: {len(updates)}")
         
-        for update in updates:
+        if not updates:
+            logger.warning("⚠️  [TELEGRAM] Нет обновлений от бота!")
+            logger.warning("⚠️  [TELEGRAM] Возможные причины:")
+            logger.warning("   1. Никто не писал боту")
+            logger.warning("   2. Обновления уже были обработаны")
+            logger.warning("   3. Неверный токен бота")
+        
+        found_in_updates = 0
+        for i, update in enumerate(updates, 1):
             if 'message' in update:
                 chat_id = update['message']['chat']['id']
+                username = update['message']['chat'].get('username', 'N/A')
+                first_name = update['message']['chat'].get('first_name', 'N/A')
+                text = update['message'].get('text', 'N/A')
+                
                 chat_ids.add(str(chat_id))
-                username = update['message']['chat'].get('username', 'Unknown')
-                logger.info(f"Найден chat_id: {chat_id} (@{username})")
+                found_in_updates += 1
+                
+                logger.info(
+                    f"  ✅ Обновление {i}: "
+                    f"chat_id={chat_id}, "
+                    f"username=@{username}, "
+                    f"имя={first_name}, "
+                    f"сообщение='{text[:30]}'"
+                )
         
         result = list(chat_ids)
-        logger.info(f"Всего активных chat_ids: {len(result)}")
+        
+        logger.info("=" * 60)
+        logger.info(f"📊 [TELEGRAM] ИТОГО найдено chat_id:")
+        logger.info(f"   - Из настроек: {len(self.chat_ids)}")
+        logger.info(f"   - Из обновлений: {found_in_updates}")
+        logger.info(f"   - Всего уникальных: {len(result)}")
+        logger.info(f"   - Список: {result}")
+        logger.info("=" * 60)
+        
         return result
     
     def send_message(
@@ -118,28 +174,45 @@ class TelegramService:
         Returns:
             True если успешно, False если ошибка
         """
+        logger.info(f"🤖 [TELEGRAM] Попытка отправить сообщение в chat_id: {chat_id}")
+        logger.info(f"🤖 [TELEGRAM] URL: {self.base_url}/sendMessage")
+        logger.info(f"🤖 [TELEGRAM] Текст сообщения (первые 100 символов): {text[:100]}...")
+        
         try:
+            payload = {
+                "chat_id": chat_id,
+                "text": text,
+                "parse_mode": parse_mode
+            }
+            logger.info(f"🤖 [TELEGRAM] Payload: {payload}")
+            
             response = requests.post(
                 f"{self.base_url}/sendMessage",
-                json={
-                    "chat_id": chat_id,
-                    "text": text,
-                    "parse_mode": parse_mode
-                },
+                json=payload,
                 timeout=10
             )
+            
+            logger.info(f"🤖 [TELEGRAM] HTTP Status Code: {response.status_code}")
+            logger.info(f"🤖 [TELEGRAM] Response: {response.text}")
+            
             response.raise_for_status()
             
             data = response.json()
             if data.get('ok'):
-                logger.info(f"Сообщение отправлено в Telegram chat {chat_id}")
+                logger.success(f"✅ [TELEGRAM] Сообщение успешно отправлено в chat {chat_id}")
                 return True
             else:
-                logger.error(f"Ошибка Telegram API: {data.get('description')}")
+                logger.error(f"❌ [TELEGRAM] Ошибка API: {data.get('description')}")
+                logger.error(f"❌ [TELEGRAM] Полный ответ: {data}")
                 return False
                 
         except requests.exceptions.RequestException as e:
-            logger.error(f"Ошибка при отправке в Telegram: {e}")
+            logger.error(f"❌ [TELEGRAM] Ошибка HTTP запроса: {e}")
+            logger.error(f"❌ [TELEGRAM] Тип ошибки: {type(e).__name__}")
+            return False
+        except Exception as e:
+            logger.error(f"❌ [TELEGRAM] Неожиданная ошибка: {e}")
+            logger.error(f"❌ [TELEGRAM] Тип ошибки: {type(e).__name__}")
             return False
     
     def send_to_all(self, text: str) -> dict:
@@ -152,11 +225,20 @@ class TelegramService:
         Returns:
             Словарь с результатами отправки
         """
+        logger.info("=" * 80)
+        logger.info("🚀 [TELEGRAM] Начало рассылки уведомления")
+        logger.info("=" * 80)
+        
         # Получаем актуальный список chat_id
+        logger.info("📋 [TELEGRAM] Получаем список активных чатов...")
         active_chats = self.get_active_chat_ids()
         
+        logger.info(f"📊 [TELEGRAM] Найдено активных чатов: {len(active_chats)}")
+        logger.info(f"📊 [TELEGRAM] Chat IDs: {active_chats}")
+        
         if not active_chats:
-            logger.warning("Нет активных чатов для отправки уведомлений")
+            logger.warning("⚠️  [TELEGRAM] Нет активных чатов для отправки уведомлений!")
+            logger.warning("⚠️  [TELEGRAM] Убедитесь что кто-то написал боту /start")
             return {
                 'success': 0,
                 'failed': 0,
@@ -164,19 +246,28 @@ class TelegramService:
                 'message': 'Нет пользователей, которые начали чат с ботом'
             }
         
+        logger.info(f"📤 [TELEGRAM] Начинаем рассылку в {len(active_chats)} чатов...")
+        
         success_count = 0
         failed_count = 0
         
-        for chat_id in active_chats:
+        for i, chat_id in enumerate(active_chats, 1):
+            logger.info(f"\n--- Отправка {i}/{len(active_chats)} ---")
             if self.send_message(chat_id, text):
                 success_count += 1
+                logger.success(f"✅ [TELEGRAM] Отправлено в чат {chat_id} ({i}/{len(active_chats)})")
             else:
                 failed_count += 1
+                logger.error(f"❌ [TELEGRAM] Не удалось отправить в чат {chat_id} ({i}/{len(active_chats)})")
         
+        logger.info("\n" + "=" * 80)
         logger.info(
-            f"Отправка завершена: {success_count} успешно, "
-            f"{failed_count} ошибок из {len(active_chats)} чатов"
+            f"🏁 [TELEGRAM] Рассылка завершена: "
+            f"✅ {success_count} успешно | "
+            f"❌ {failed_count} ошибок | "
+            f"📊 Всего: {len(active_chats)}"
         )
+        logger.info("=" * 80)
         
         return {
             'success': success_count,
