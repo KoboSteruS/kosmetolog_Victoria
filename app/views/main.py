@@ -66,13 +66,6 @@ SPECIALISTS = [
         "image": "doctor3.jpg",
         "experience": "Медицинское образование"
     },
-    {
-        "name": "Косметолог",
-        "position": "Врач-косметолог",
-        "specialization": "Пилинги, чистки и лазерная эпиляция",
-        "image": "doctor4.jpg",
-        "experience": "Медицинское образование"
-    },
 ]
 
 
