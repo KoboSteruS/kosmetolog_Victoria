@@ -284,6 +284,25 @@
         </div>
     </div>
 
+    <!-- Модальное окно всех отзывов -->
+    <div class="modal" id="allReviewsModal">
+        <div class="modal-content" style="max-width: 1000px;">
+            <button class="modal-close" onclick="closeAllReviewsModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="modal-title">Все отзывы наших клиентов</h2>
+            <p class="modal-subtitle">Что говорят о нас</p>
+            
+            <!-- Список всех отзывов -->
+            <div class="all-reviews-list" id="allReviewsList">
+                <div style="text-align: center; padding: 40px; color: #999;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+                    <p>Загрузка отзывов...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Плавающая кнопка записи -->
     <div class="floating-cta" id="floatingCta">
         <button class="btn btn-primary" onclick="openAppointmentModal()">

@@ -1885,6 +1885,36 @@ button {
     background: #B66A74;
 }
 
+/* === ALL REVIEWS MODAL === */
+.all-reviews-list {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.all-reviews-list .review-card {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Скроллбар для списка отзывов */
+.all-reviews-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.all-reviews-list::-webkit-scrollbar-track {
+    background: var(--secondary-color);
+    border-radius: 10px;
+}
+
+.all-reviews-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.all-reviews-list::-webkit-scrollbar-thumb:hover {
+    background: #B66A74;
+}
+
 /* === FOOTER === */
 .footer {
     background: var(--dark-color);

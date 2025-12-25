@@ -393,7 +393,7 @@
         
         <div class="reviews-slider" id="reviewsSlider">
             {% if reviews %}
-                {% for review in reviews %}
+                {% for review in reviews[:3] %}
                 <div class="review-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
                     <div class="review-header">
                         <div class="review-avatar">
@@ -425,7 +425,13 @@
             {% endif %}
         </div>
         
-        <div class="reviews-action" data-aos="fade-up">
+        <div class="reviews-action" data-aos="fade-up" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            {% if reviews and reviews|length > 3 %}
+            <button class="btn btn-outline" onclick="openAllReviewsModal()">
+                <i class="fas fa-comments"></i>
+                Посмотреть все отзывы ({{ reviews|length }})
+            </button>
+            {% endif %}
             <button class="btn btn-primary" onclick="openReviewModal()">
                 <i class="fas fa-pen"></i>
                 Оставить отзыв

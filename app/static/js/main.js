@@ -874,6 +874,99 @@ function initBeforeAfter() {
     });
 }
 
+/**
+ * Модальное окно всех отзывов
+ */
+function openAllReviewsModal() {
+    const modal = document.getElementById('allReviewsModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Загружаем все отзывы
+        loadAllReviews();
+    }
+}
+
+function closeAllReviewsModal() {
+    const modal = document.getElementById('allReviewsModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+}
+
+/**
+ * Загрузка всех отзывов
+ */
+async function loadAllReviews() {
+    const container = document.getElementById('allReviewsList');
+    
+    try {
+        const response = await fetch('/api/reviews');
+        const data = await response.json();
+        
+        if (data.success && data.data.length > 0) {
+            container.innerHTML = data.data.map(review => `
+                <div class="review-card" style="margin-bottom: 20px;">
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="review-author">
+                            <h4 class="review-name">${escapeHtml(review.name)}</h4>
+                            <div class="review-rating">
+                                ${'<i class="fas fa-star"></i>'.repeat(review.rating)}
+                                ${'<i class="far fa-star"></i>'.repeat(5 - review.rating)}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">${escapeHtml(review.text)}</p>
+                    <div class="review-date">
+                        ${formatReviewDate(review.created_at)}
+                    </div>
+                </div>
+            `).join('');
+        } else {
+            container.innerHTML = `
+                <div class="no-reviews">
+                    <i class="fas fa-comments"></i>
+                    <p>Отзывов пока нет</p>
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Ошибка загрузки отзывов:', error);
+        container.innerHTML = `
+            <div class="no-reviews">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Ошибка загрузки отзывов</p>
+            </div>
+        `;
+    }
+}
+
+/**
+ * Экранирование HTML
+ */
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+/**
+ * Форматирование даты отзыва
+ */
+function formatReviewDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+}
+
 // Экспортируем функции для использования из HTML
 window.openAppointmentModal = openAppointmentModal;
 window.closeAppointmentModal = closeAppointmentModal;
@@ -881,4 +974,6 @@ window.openReviewModal = openReviewModal;
 window.closeReviewModal = closeReviewModal;
 window.openAllServicesModal = openAllServicesModal;
 window.closeAllServicesModal = closeAllServicesModal;
+window.openAllReviewsModal = openAllReviewsModal;
+window.closeAllReviewsModal = closeAllReviewsModal;
 
