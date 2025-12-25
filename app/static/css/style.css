@@ -1771,6 +1771,192 @@ button {
     margin-bottom: 30px;
 }
 
+/* === SPECIALIST MODAL === */
+.specialist-modal-header {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.specialist-modal-image {
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.specialist-modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.specialist-modal-info {
+    flex: 1;
+}
+
+.specialist-modal-name {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+    font-family: var(--font-accent);
+}
+
+.specialist-modal-position {
+    font-size: 18px;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.specialist-modal-specialization {
+    font-size: 16px;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.specialist-modal-description {
+    font-size: 16px;
+    color: var(--text-color);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.specialist-modal-section {
+    margin-bottom: 35px;
+}
+
+.specialist-modal-section h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-accent);
+}
+
+.specialist-modal-section h3 i {
+    color: var(--primary-color);
+}
+
+.specialist-education {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.education-item {
+    display: flex;
+    gap: 20px;
+    padding: 15px;
+    background: var(--secondary-color);
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.education-year {
+    font-weight: 700;
+    color: var(--primary-color);
+    min-width: 80px;
+    font-size: 16px;
+}
+
+.education-text {
+    flex: 1;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.specialist-procedures {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.specialist-procedures li {
+    padding: 12px 20px;
+    background: var(--secondary-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    position: relative;
+    padding-left: 35px;
+}
+
+.specialist-procedures li::before {
+    content: '✓';
+    position: absolute;
+    left: 15px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.specialist-quote {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, rgba(200, 123, 133, 0.1) 100%);
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 5px solid var(--primary-color);
+}
+
+.specialist-quote p {
+    font-size: 18px;
+    color: var(--dark-color);
+    line-height: 1.8;
+    margin: 0;
+    font-style: italic;
+}
+
+.specialist-quote i {
+    color: var(--primary-color);
+    margin-right: 10px;
+}
+
+.specialist-modal-actions {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid var(--secondary-color);
+    text-align: center;
+}
+
+.specialist-modal-actions .btn {
+    padding: 15px 40px;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .specialist-modal-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .specialist-modal-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .specialist-procedures {
+        grid-template-columns: 1fr;
+    }
+    
+    .education-item {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .education-year {
+        min-width: auto;
+    }
+}
+
 /* === RATING INPUT === */
 .rating-input {
     display: flex;

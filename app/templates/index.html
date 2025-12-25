@@ -201,8 +201,11 @@
                 <div class="specialist-image">
                     <img src="{{ url_for('static', filename='images/' + specialist.image) }}" alt="{{ specialist.name }}" loading="lazy" decoding="async">
                     <div class="specialist-overlay">
-                        <button class="btn btn-white" onclick="openAppointmentModal('', '{{ specialist.name }}')">
-                            Записаться
+                        <button class="btn btn-white" onclick="openSpecialistModal({{ loop.index0 }})">
+                            <i class="fas fa-info-circle"></i> Подробнее
+                        </button>
+                        <button class="btn btn-white" onclick="openAppointmentModal('', '{{ specialist.name }}')" style="margin-top: 10px;">
+                            <i class="fas fa-calendar"></i> Записаться
                         </button>
                     </div>
                 </div>
@@ -226,6 +229,11 @@
             </a>
         </div>
     </div>
+    
+    <!-- Данные специалистов для JavaScript -->
+    <script type="application/json" id="specialistsData">
+        {{ specialists | tojson }}
+    </script>
 </section>
 
 <!-- Блок 4.5: До/После -->

@@ -1091,6 +1091,109 @@ function initBeforeAfter() {
     });
 }
 
+/**
+ * Модальное окно специалиста
+ */
+window.openSpecialistModal = function(index) {
+    const modal = document.getElementById('specialistModal');
+    const content = document.getElementById('specialistModalContent');
+    
+    // Получаем данные специалистов
+    const dataElement = document.getElementById('specialistsData');
+    if (!dataElement) return;
+    
+    const specialists = JSON.parse(dataElement.textContent);
+    const specialist = specialists[index];
+    
+    if (!specialist) return;
+    
+    // Формируем HTML
+    let html = `
+        <div class="specialist-modal-header">
+            <div class="specialist-modal-image">
+                <img src="/static/images/${specialist.image}" alt="${escapeHtml(specialist.name)}">
+            </div>
+            <div class="specialist-modal-info">
+                <h2 class="specialist-modal-name">${escapeHtml(specialist.name)}</h2>
+                <p class="specialist-modal-position">${escapeHtml(specialist.position)}</p>
+                <p class="specialist-modal-specialization">${escapeHtml(specialist.specialization)}</p>
+                ${specialist.description ? `<p class="specialist-modal-description">${escapeHtml(specialist.description)}</p>` : ''}
+            </div>
+        </div>
+    `;
+    
+    // Образование
+    if (specialist.education && specialist.education.length > 0) {
+        html += `
+            <div class="specialist-modal-section">
+                <h3><i class="fas fa-graduation-cap"></i> Образование и опыт</h3>
+                <div class="specialist-education">
+        `;
+        
+        specialist.education.forEach(edu => {
+            html += `
+                <div class="education-item">
+                    <span class="education-year">${escapeHtml(edu.year)}</span>
+                    <span class="education-text">${escapeHtml(edu.text)}</span>
+                </div>
+            `;
+        });
+        
+        html += `
+                </div>
+            </div>
+        `;
+    }
+    
+    // Процедуры (для Татьяны)
+    if (specialist.procedures && specialist.procedures.length > 0) {
+        html += `
+            <div class="specialist-modal-section">
+                <h3><i class="fas fa-spa"></i> Выполняемые процедуры</h3>
+                <ul class="specialist-procedures">
+        `;
+        
+        specialist.procedures.forEach(proc => {
+            html += `<li>${escapeHtml(proc)}</li>`;
+        });
+        
+        html += `
+                </ul>
+            </div>
+        `;
+    }
+    
+    // Цитата
+    if (specialist.quote) {
+        html += `
+            <div class="specialist-modal-section specialist-quote">
+                <p><i class="fas fa-quote-left"></i> ${escapeHtml(specialist.quote)}</p>
+            </div>
+        `;
+    }
+    
+    // Кнопка записи
+    html += `
+        <div class="specialist-modal-actions">
+            <button class="btn btn-primary" onclick="closeSpecialistModal(); openAppointmentModal('', '${escapeHtml(specialist.name)}');">
+                <i class="fas fa-calendar-check"></i> Записаться к ${escapeHtml(specialist.name.split(' ')[0])}
+            </button>
+        </div>
+    `;
+    
+    content.innerHTML = html;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeSpecialistModal = function() {
+    const modal = document.getElementById('specialistModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+};
+
 // Экспортируем функции для использования из HTML
 window.openAppointmentModal = openAppointmentModal;
 window.closeAppointmentModal = closeAppointmentModal;
