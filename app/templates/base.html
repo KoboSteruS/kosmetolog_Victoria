@@ -53,6 +53,12 @@
                 <div class="logo">
                     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Виктория" class="logo-img">
                 </div>
+                
+                <!-- Версия для слабовидящих -->
+                <button class="vision-impaired-btn" onclick="toggleVisionPanel()" title="Версия для слабовидящих">
+                    <i class="fas fa-eye"></i>
+                    <span>Для слабовидящих</span>
+                </button>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home" class="nav-link">Главная</a></li>
                     <li><a href="#about" class="nav-link">О клинике</a></li>
@@ -302,6 +308,59 @@
                     <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
                     <p>Загрузка отзывов...</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Панель управления для слабовидящих -->
+    <div class="vision-panel" id="visionPanel">
+        <div class="vision-panel-header">
+            <h3>Настройки отображения</h3>
+            <button class="vision-close" onclick="toggleVisionPanel()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="vision-panel-content">
+            <div class="vision-option">
+                <label>Размер шрифта:</label>
+                <div class="vision-buttons">
+                    <button onclick="setFontSize('small')">A</button>
+                    <button onclick="setFontSize('medium')" class="active">A</button>
+                    <button onclick="setFontSize('large')">A</button>
+                </div>
+            </div>
+            
+            <div class="vision-option">
+                <label>Цветовая схема:</label>
+                <div class="vision-buttons">
+                    <button onclick="setColorScheme('default')" class="active">Обычная</button>
+                    <button onclick="setColorScheme('black-white')">Черная</button>
+                    <button onclick="setColorScheme('white-black')">Белая</button>
+                    <button onclick="setColorScheme('blue')">Синяя</button>
+                </div>
+            </div>
+            
+            <div class="vision-option">
+                <label>Межбуквенный интервал:</label>
+                <div class="vision-buttons">
+                    <button onclick="setLetterSpacing('normal')" class="active">Обычный</button>
+                    <button onclick="setLetterSpacing('medium')">Средний</button>
+                    <button onclick="setLetterSpacing('large')">Большой</button>
+                </div>
+            </div>
+            
+            <div class="vision-option">
+                <label>Изображения:</label>
+                <div class="vision-buttons">
+                    <button onclick="toggleImages('on')" class="active">Включены</button>
+                    <button onclick="toggleImages('off')">Выключены</button>
+                </div>
+            </div>
+            
+            <div class="vision-option">
+                <button onclick="resetVisionSettings()" class="btn-reset">
+                    <i class="fas fa-undo"></i> Сбросить настройки
+                </button>
             </div>
         </div>
     </div>

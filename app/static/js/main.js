@@ -104,9 +104,118 @@ function formatReviewDate(dateString) {
     });
 }
 
+// === ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ ===
+
+/**
+ * Переключение панели настроек
+ */
+window.toggleVisionPanel = function() {
+    const panel = document.getElementById('visionPanel');
+    panel.classList.toggle('active');
+};
+
+/**
+ * Установка размера шрифта
+ */
+window.setFontSize = function(size) {
+    document.body.classList.remove('vision-font-small', 'vision-font-medium', 'vision-font-large');
+    
+    if (size !== 'medium') {
+        document.body.classList.add(`vision-font-${size}`);
+    }
+    
+    localStorage.setItem('vision-font-size', size);
+    updateActiveButton('fontSize', size);
+};
+
+/**
+ * Установка цветовой схемы
+ */
+window.setColorScheme = function(scheme) {
+    document.body.classList.remove(
+        'vision-scheme-default',
+        'vision-scheme-black-white',
+        'vision-scheme-white-black',
+        'vision-scheme-blue'
+    );
+    
+    if (scheme !== 'default') {
+        document.body.classList.add(`vision-scheme-${scheme}`);
+    }
+    
+    localStorage.setItem('vision-color-scheme', scheme);
+    updateActiveButton('colorScheme', scheme);
+};
+
+/**
+ * Установка межбуквенного интервала
+ */
+window.setLetterSpacing = function(spacing) {
+    document.body.classList.remove('vision-spacing-normal', 'vision-spacing-medium', 'vision-spacing-large');
+    
+    if (spacing !== 'normal') {
+        document.body.classList.add(`vision-spacing-${spacing}`);
+    }
+    
+    localStorage.setItem('vision-letter-spacing', spacing);
+    updateActiveButton('letterSpacing', spacing);
+};
+
+/**
+ * Переключение отображения изображений
+ */
+window.toggleImages = function(state) {
+    document.body.classList.remove('vision-images-on', 'vision-images-off');
+    document.body.classList.add(`vision-images-${state}`);
+    
+    localStorage.setItem('vision-images', state);
+    updateActiveButton('images', state);
+};
+
+/**
+ * Сброс всех настроек
+ */
+window.resetVisionSettings = function() {
+    document.body.className = '';
+    localStorage.removeItem('vision-font-size');
+    localStorage.removeItem('vision-color-scheme');
+    localStorage.removeItem('vision-letter-spacing');
+    localStorage.removeItem('vision-images');
+    
+    // Перезагрузка страницы для сброса всех стилей
+    location.reload();
+};
+
+/**
+ * Обновление активной кнопки
+ */
+function updateActiveButton(optionType, value) {
+    // Логика обновления зависит от типа опции
+    // Можно добавить визуальное выделение активных кнопок
+}
+
+/**
+ * Загрузка сохраненных настроек
+ */
+function loadVisionSettings() {
+    const fontSize = localStorage.getItem('vision-font-size');
+    const colorScheme = localStorage.getItem('vision-color-scheme');
+    const letterSpacing = localStorage.getItem('vision-letter-spacing');
+    const images = localStorage.getItem('vision-images');
+    
+    if (fontSize) setFontSize(fontSize);
+    if (colorScheme) setColorScheme(colorScheme);
+    if (letterSpacing) setLetterSpacing(letterSpacing);
+    if (images) toggleImages(images);
+}
+
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Инициализация приложения...');
+    
+    // Загружаем настройки для слабовидящих
+    loadVisionSettings();
+    
     initAOS();
     initSmoothScroll();
     initMobileMenu();
