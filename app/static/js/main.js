@@ -5,6 +5,7 @@
 
 // === ИНИЦИАЛИЗАЦИЯ ===
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Инициализация приложения...');
     initAOS();
     initSmoothScroll();
     initMobileMenu();
@@ -16,6 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initFAQ();
     initFloatingCTA();
     initBeforeAfter();
+    
+    console.log('✅ Все функции загружены');
+    console.log('Доступные модальные функции:', {
+        openAllReviewsModal: typeof window.openAllReviewsModal,
+        closeAllReviewsModal: typeof window.closeAllReviewsModal
+    });
 });
 
 /**
@@ -878,13 +885,19 @@ function initBeforeAfter() {
  * Модальное окно всех отзывов
  */
 function openAllReviewsModal() {
+    console.log('🔍 Открываем модальное окно отзывов...');
     const modal = document.getElementById('allReviewsModal');
+    console.log('Modal element:', modal);
+    
     if (modal) {
+        console.log('✅ Modal найден, открываем...');
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
         
         // Загружаем все отзывы
         loadAllReviews();
+    } else {
+        console.error('❌ Modal не найден! ID: allReviewsModal');
     }
 }
 
