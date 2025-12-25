@@ -71,9 +71,9 @@ button {
 
 /* === UTILITY CLASSES === */
 .container {
-    max-width: 1300px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 30px;
 }
 
 .section-header {
@@ -186,8 +186,8 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 0;
-    gap: 40px;
+    padding: 15px 0;
+    gap: 20px;
 }
 
 .logo-img {
@@ -198,7 +198,7 @@ button {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 35px;
+    gap: 25px;
     margin: 0;
 }
 
@@ -227,7 +227,7 @@ button {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 15px;
 }
 
 .phone-link {
@@ -1919,16 +1919,17 @@ button {
 .vision-impaired-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
+    gap: 6px;
+    padding: 6px 12px;
     background: var(--primary-color);
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
+    white-space: nowrap;
 }
 
 .vision-impaired-btn:hover {
