@@ -277,7 +277,7 @@ button {
     right: 0;
     bottom: 0;
     background: url('../images/hero-bg.png') center top/contain no-repeat; /* Изменил на contain для отдаления */
-    background-position: calc(50% - 150px) -40px; /* Сдвинул влево сильнее */
+    background-position: calc(50% + 150px) -40px; /* Сдвинул вправо на 150px и вверх на 40px */
     background-size: 95%; /* Уменьшил масштаб на 5% */
     z-index: -1;
     animation: zoomIn 20s ease-in-out infinite alternate;
