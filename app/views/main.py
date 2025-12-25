@@ -63,14 +63,14 @@ SPECIALISTS = [
         "name": "Специалист по LPG",
         "position": "Врач-косметолог",
         "specialization": "Аппаратная косметология и коррекция фигуры",
-        "image": "doctor3.png",
+        "image": "doctor3.jpg",
         "experience": "Медицинское образование"
     },
     {
         "name": "Косметолог",
         "position": "Врач-косметолог",
         "specialization": "Пилинги, чистки и лазерная эпиляция",
-        "image": "doctor4.png",
+        "image": "doctor4.jpg",
         "experience": "Медицинское образование"
     },
 ]
