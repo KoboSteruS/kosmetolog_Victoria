@@ -2,7 +2,7 @@
 Основные views приложения.
 Обработка главной страницы и форм записи/отзывов.
 """
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, abort
 from loguru import logger
 from pydantic import ValidationError
 
@@ -10,6 +10,7 @@ from app import db
 from app.models import Appointment, Review
 from app.schemas import AppointmentCreate, ReviewCreate, AppointmentResponse, ReviewResponse
 from app.services import telegram_service
+from app.utils import verify_admin_token
 
 main_bp = Blueprint('main', __name__)
 
@@ -408,4 +409,67 @@ def unpublish_review(uuid):
             "success": False,
             "message": "Ошибка при скрытии отзыва"
         }), 500
+
+
+@main_bp.route('/api/reviews/<uuid>', methods=['DELETE'])
+def delete_review(uuid):
+    """
+    API endpoint для удаления отзыва.
+    
+    Args:
+        uuid: UUID отзыва
+        
+    Returns:
+        JSON с результатом операции
+    """
+    try:
+        review = Review.query.filter_by(uuid=uuid).first()
+        
+        if not review:
+            return jsonify({
+                "success": False,
+                "message": "Отзыв не найден"
+            }), 404
+        
+        review_name = review.name
+        db.session.delete(review)
+        db.session.commit()
+        
+        logger.success(f"Отзыв {uuid} от {review_name} удален")
+        
+        return jsonify({
+            "success": True,
+            "message": f"Отзыв от {review_name} успешно удален"
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Ошибка при удалении отзыва: {e}")
+        db.session.rollback()
+        return jsonify({
+            "success": False,
+            "message": "Ошибка при удалении отзыва"
+        }), 500
+
+
+@main_bp.route('/<token>/admin')
+def admin_panel(token):
+    """
+    Админ-панель для управления отзывами.
+    Доступ по JWT токену в URL.
+    
+    Args:
+        token: JWT токен для авторизации
+        
+    Returns:
+        HTML страница админки или 403
+    """
+    logger.info(f"🔐 Попытка доступа в админку с токеном: {token[:20]}...")
+    
+    # Проверяем токен
+    if not verify_admin_token(token):
+        logger.warning(f"❌ Доступ в админку запрещен: невалидный токен")
+        abort(403, description="Доступ запрещен. Неверный токен.")
+    
+    logger.success(f"✅ Доступ в админку разрешен")
+    return render_template('admin.html', token=token)
 

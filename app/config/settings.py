@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     
     # Flask настройки
     SECRET_KEY: str = "dev-secret-key-change-in-production"
+    JWT_SECRET: str = "jwt-secret-key-change-in-production"  # Для админки
     FLASK_ENV: str = "development"
     DEBUG: bool = True
     APP_NAME: str = "Victoria Clinic"

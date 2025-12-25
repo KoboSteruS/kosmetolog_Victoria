@@ -1,0 +1,9 @@
+Админ-панель клиники Виктория
+==================================================
+
+Ссылка для доступа:
+http://localhost:5000/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjY2NzA0NzMsImV4cCI6MTc5ODIwNjQ3M30.5CY3dY0kAiQ_nnEmV50PdDGU0dq_XZx24v4TZJbOXIY/admin
+
+Токен действителен до: 365 дней
+
+ВНИМАНИЕ: Не делитесь этой ссылкой!
