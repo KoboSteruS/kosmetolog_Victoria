@@ -884,7 +884,7 @@ function initBeforeAfter() {
 /**
  * Модальное окно всех отзывов
  */
-function openAllReviewsModal() {
+window.openAllReviewsModal = function() {
     console.log('🔍 Открываем модальное окно отзывов...');
     const modal = document.getElementById('allReviewsModal');
     console.log('Modal element:', modal);
@@ -899,15 +899,15 @@ function openAllReviewsModal() {
     } else {
         console.error('❌ Modal не найден! ID: allReviewsModal');
     }
-}
+};
 
-function closeAllReviewsModal() {
+window.closeAllReviewsModal = function() {
     const modal = document.getElementById('allReviewsModal');
     if (modal) {
         modal.style.display = 'none';
         document.body.style.overflow = '';
     }
-}
+};
 
 /**
  * Загрузка всех отзывов
@@ -987,6 +987,5 @@ window.openReviewModal = openReviewModal;
 window.closeReviewModal = closeReviewModal;
 window.openAllServicesModal = openAllServicesModal;
 window.closeAllServicesModal = closeAllServicesModal;
-window.openAllReviewsModal = openAllReviewsModal;
-window.closeAllReviewsModal = closeAllReviewsModal;
+// openAllReviewsModal и closeAllReviewsModal уже экспортированы при определении
 
