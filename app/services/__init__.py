@@ -1,5 +1,5 @@
 """Модуль сервисов приложения."""
-# Здесь можно добавить сервисы для отправки email, SMS и т.д.
+from app.services.telegram_service import telegram_service
 
-__all__ = []
+__all__ = ['telegram_service']
 

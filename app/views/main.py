@@ -9,6 +9,7 @@ from pydantic import ValidationError
 from app import db
 from app.models import Appointment, Review
 from app.schemas import AppointmentCreate, ReviewCreate, AppointmentResponse, ReviewResponse
+from app.services import telegram_service
 
 main_bp = Blueprint('main', __name__)
 
@@ -125,6 +126,23 @@ def create_appointment():
         db.session.commit()
         
         logger.success(f"Заявка успешно создана: {appointment.uuid}")
+        
+        # Отправляем уведомление в Telegram
+        try:
+            message = telegram_service.format_appointment_message(
+                name=appointment_data.name,
+                phone=appointment_data.phone,
+                service=appointment_data.service,
+                comment=appointment_data.comment
+            )
+            result = telegram_service.send_to_all(message)
+            logger.info(
+                f"Уведомление отправлено в Telegram: "
+                f"{result['success']} успешно, {result['failed']} ошибок"
+            )
+        except Exception as e:
+            # Не прерываем процесс если отправка в Telegram не удалась
+            logger.error(f"Ошибка отправки в Telegram: {e}")
         
         # Формируем ответ
         response_data = AppointmentResponse.model_validate(appointment)

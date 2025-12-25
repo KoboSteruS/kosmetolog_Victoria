@@ -32,6 +32,10 @@ class Settings(BaseSettings):
     SMTP_PASSWORD: Optional[str] = None
     ADMIN_EMAIL: Optional[str] = None
     
+    # Telegram Bot настройки
+    TELEGRAM_BOT_TOKEN: str = "8588808155:AAHHfeIWRADTgRcOdSDI9byUHmzPJE2LGA8"
+    TELEGRAM_CHAT_IDS: str = ""  # Список chat_id через запятую (будут заполняться когда пользователи пишут боту)
+    
     # Конфигурация Pydantic
     model_config = SettingsConfigDict(
         env_file=".env",
