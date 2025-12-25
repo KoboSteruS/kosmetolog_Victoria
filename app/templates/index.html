@@ -163,9 +163,9 @@
             <button class="filter-btn" data-category="Аппаратная косметология">Аппаратная</button>
         </div>
         
-        <!-- Сетка услуг (показываем только 9 популярных) -->
+        <!-- Сетка услуг (показываем только 4 популярные) -->
         <div class="services-grid">
-            {% for service in services[:9] %}
+            {% for service in services[:4] %}
             <div class="service-card" data-category="{{ service.category }}" data-aos="fade-up">
                 {% if service.badge %}
                 <span class="service-badge">{{ service.badge }}</span>
