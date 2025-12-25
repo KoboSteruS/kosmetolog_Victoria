@@ -40,7 +40,7 @@ class Review(BaseModel):
     
     is_published = db.Column(
         db.Boolean,
-        default=False,
+        default=True,  # Автоматическая публикация
         nullable=False,
         comment="Опубликован ли отзыв"
     )

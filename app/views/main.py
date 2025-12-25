@@ -296,3 +296,116 @@ def get_reviews():
             "message": "Ошибка при загрузке отзывов"
         }), 500
 
+
+@main_bp.route('/api/reviews/all', methods=['GET'])
+def get_all_reviews():
+    """
+    API endpoint для получения ВСЕХ отзывов (включая неопубликованные).
+    Для модерации.
+    
+    Returns:
+        JSON со списком всех отзывов
+    """
+    try:
+        reviews = Review.query.order_by(Review.created_at.desc()).all()
+        
+        reviews_data = []
+        for review in reviews:
+            review_dict = ReviewResponse.model_validate(review).model_dump()
+            review_dict['is_published'] = review.is_published
+            review_dict['uuid'] = str(review.uuid)
+            reviews_data.append(review_dict)
+        
+        return jsonify({
+            "success": True,
+            "total": len(reviews_data),
+            "published": len([r for r in reviews_data if r['is_published']]),
+            "unpublished": len([r for r in reviews_data if not r['is_published']]),
+            "data": reviews_data
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Ошибка при получении всех отзывов: {e}")
+        return jsonify({
+            "success": False,
+            "message": "Ошибка при загрузке отзывов"
+        }), 500
+
+
+@main_bp.route('/api/reviews/<uuid>/publish', methods=['POST'])
+def publish_review(uuid):
+    """
+    API endpoint для публикации отзыва.
+    
+    Args:
+        uuid: UUID отзыва
+        
+    Returns:
+        JSON с результатом операции
+    """
+    try:
+        review = Review.query.filter_by(uuid=uuid).first()
+        
+        if not review:
+            return jsonify({
+                "success": False,
+                "message": "Отзыв не найден"
+            }), 404
+        
+        review.is_published = True
+        db.session.commit()
+        
+        logger.success(f"Отзыв {uuid} опубликован")
+        
+        return jsonify({
+            "success": True,
+            "message": "Отзыв успешно опубликован"
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Ошибка при публикации отзыва: {e}")
+        db.session.rollback()
+        return jsonify({
+            "success": False,
+            "message": "Ошибка при публикации отзыва"
+        }), 500
+
+
+@main_bp.route('/api/reviews/<uuid>/unpublish', methods=['POST'])
+def unpublish_review(uuid):
+    """
+    API endpoint для скрытия отзыва.
+    
+    Args:
+        uuid: UUID отзыва
+        
+    Returns:
+        JSON с результатом операции
+    """
+    try:
+        review = Review.query.filter_by(uuid=uuid).first()
+        
+        if not review:
+            return jsonify({
+                "success": False,
+                "message": "Отзыв не найден"
+            }), 404
+        
+        review.is_published = False
+        db.session.commit()
+        
+        logger.success(f"Отзыв {uuid} скрыт")
+        
+        return jsonify({
+            "success": True,
+            "message": "Отзыв успешно скрыт"
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Ошибка при скрытии отзыва: {e}")
+        db.session.rollback()
+        return jsonify({
+            "success": False,
+            "message": "Ошибка при скрытии отзыва"
+        }), 500
+
