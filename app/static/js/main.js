@@ -679,7 +679,7 @@ function openAppointmentModal(serviceName = '', specialistName = '') {
         }
     }
     
-    // Добавляем имя специалиста в комментарий если передано
+    // Добавляем имя косметолога в комментарий если передано
     if (specialistName) {
         const commentField = modal.querySelector('[name="comment"]');
         if (commentField) {
@@ -1092,13 +1092,13 @@ function initBeforeAfter() {
 }
 
 /**
- * Модальное окно специалиста
+ * Модальное окно косметолога
  */
 window.openSpecialistModal = function(index) {
     const modal = document.getElementById('specialistModal');
     const content = document.getElementById('specialistModalContent');
     
-    // Получаем данные специалистов
+    // Получаем данные косметологов
     const dataElement = document.getElementById('specialistsData');
     if (!dataElement) return;
     
