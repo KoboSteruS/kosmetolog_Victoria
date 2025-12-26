@@ -1116,7 +1116,6 @@ window.openSpecialistModal = function(index) {
             <div class="specialist-modal-info">
                 <h2 class="specialist-modal-name">${escapeHtml(specialist.name)}</h2>
                 <p class="specialist-modal-position">${escapeHtml(specialist.position)}</p>
-                <p class="specialist-modal-specialization">${escapeHtml(specialist.specialization)}</p>
                 ${specialist.description ? `<p class="specialist-modal-description">${escapeHtml(specialist.description)}</p>` : ''}
             </div>
         </div>

@@ -50,7 +50,7 @@ SPECIALISTS = [
         "position": "Косметолог",
         "specialization": "Эстетическая косметология",
         "image": "doctor1.jpg",
-        "experience": "Более 15 лет опыта",
+        "experience": "Опытный косметолог",
         "description": "Наш улыбчивый и заботливый косметолог!",
         "education": [
             {
@@ -77,7 +77,7 @@ SPECIALISTS = [
         "position": "Косметолог",
         "specialization": "Косметолог по инъекционным методикам и уходам",
         "image": "doctor2.jpg",
-        "experience": "Опытный косметолог",
+        "experience": "Ведущий косметолог",
         "description": "Косметолог своего дела с опытом работы и заботой о каждом клиенте!",
         "education": [
             {
