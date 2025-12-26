@@ -649,6 +649,35 @@ function hideFormMessage(element) {
 }
 
 /**
+ * Склонение имени в дательный падеж (к кому?)
+ * @param {string} name - Полное имя (например, "Надежда Шлямина")
+ * @returns {string} - Имя в дательном падеже (например, "Надежде")
+ */
+function getDativeCase(name) {
+    if (!name) return '';
+    
+    // Берем только первое слово (имя)
+    const firstName = name.split(' ')[0].trim();
+    
+    // Правила склонения для дательного падежа
+    // Имена на -а → -е (Надежда → Надежде, Татьяна → Татьяне, Ирина → Ирине)
+    if (firstName.endsWith('а')) {
+        return firstName.slice(0, -1) + 'е';
+    }
+    // Имена на -я → -и (Мария → Марии)
+    if (firstName.endsWith('я')) {
+        return firstName.slice(0, -1) + 'и';
+    }
+    // Имена на согласную → добавляем -е (Анна → Анне)
+    if (!firstName.endsWith('а') && !firstName.endsWith('я') && !firstName.endsWith('е') && !firstName.endsWith('и')) {
+        return firstName + 'е';
+    }
+    
+    // Если не подошло ни одно правило, возвращаем как есть
+    return firstName;
+}
+
+/**
  * Открыть модальное окно записи
  */
 function openAppointmentModal(serviceName = '', specialistName = '') {
@@ -683,7 +712,7 @@ function openAppointmentModal(serviceName = '', specialistName = '') {
     if (specialistName) {
         const commentField = modal.querySelector('[name="comment"]');
         if (commentField) {
-            commentField.value = `Хочу записаться к ${specialistName}`;
+            commentField.value = `Хочу записаться к ${getDativeCase(specialistName)}`;
         }
     }
 }
@@ -1175,7 +1204,7 @@ window.openSpecialistModal = function(index) {
     html += `
         <div class="specialist-modal-actions">
             <button class="btn btn-primary" onclick="closeSpecialistModal(); openAppointmentModal('', '${escapeHtml(specialist.name)}');">
-                <i class="fas fa-calendar-check"></i> Записаться к ${escapeHtml(specialist.name.split(' ')[0])}
+                <i class="fas fa-calendar-check"></i> Записаться к ${escapeHtml(getDativeCase(specialist.name))}
             </button>
         </div>
     `;
