@@ -46,7 +46,7 @@ SERVICES = [
 # Данные специалистов
 SPECIALISTS = [
     {
-        "name": "Надежда",
+        "name": "Надежда Шлямина",
         "position": "Врач-косметолог",
         "specialization": "Эстетическая косметология",
         "image": "doctor1.jpg",
